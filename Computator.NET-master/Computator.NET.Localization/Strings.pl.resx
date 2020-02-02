@@ -1,0 +1,437 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Expression_should_not_be_empty_" xml:space="preserve">
+    <value>Wyrażenie nie może być puste!</value>
+  </data>
+  <data name="AddToChart" xml:space="preserve">
+    <value>Dodaj do wykresu</value>
+  </data>
+  <data name="DrawChart" xml:space="preserve">
+    <value>Narysuj wykres</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Błąd</value>
+  </data>
+  <data name="GivenΕIsNotValidΕShouldBeSmallPositiveNumber" xml:space="preserve">
+    <value>Podane ε jest niepoprawne. ε powinno być małą liczbą dodatnią.</value>
+  </data>
+  <data name="GivenΕIsNotValid" xml:space="preserve">
+    <value>Podane ε jest niepoprawne.</value>
+  </data>
+  <data name="ConsoleOutput" xml:space="preserve">
+    <value>Wyjście konsoli:</value>
+  </data>
+  <data name="Features" xml:space="preserve">
+    <value>Cechy:</value>
+  </data>
+  <data name="PleaseReportAnyBugsToPawełTrokaPtrokaFizykaDk" xml:space="preserve">
+    <value>Proszę zgłaszać wszelkie błędy do Paweł Troka - pawel.troka@outlook.com</value>
+  </data>
+  <data name="BugReporting" xml:space="preserve">
+    <value>Raportowanie błędów</value>
+  </data>
+  <data name="Chart" xml:space="preserve">
+    <value>Wykres</value>
+  </data>
+  <data name="ItSFeaturesInclude" xml:space="preserve">
+    <value>Jego cechy to:</value>
+  </data>
+  <data name="Source_" xml:space="preserve">
+    <value>źródło:</value>
+  </data>
+  <data name="ErrorInExpressionSyntaxOneOfUsedFunctionsDoesNotExistIsIncompatibleWithGivenArgumentsOrYouJustMadeAMistakeWritingExpression" xml:space="preserve">
+    <value>Błąd w składni wyrażenia. Jedna z używanych funkcji nie istnieje / jest niekompatybilna z podanymi argumentami lub po prostu popełniłeś błąd w zapisie wyrażenia.</value>
+  </data>
+  <data name="Details" xml:space="preserve">
+    <value>Szczegóły:</value>
+  </data>
+  <data name="MoreDetails" xml:space="preserve">
+    <value>Więcej szczegółów:</value>
+  </data>
+  <data name="NoFunctionToInvoke" xml:space="preserve">
+    <value>Brak funkcji do wywołania</value>
+  </data>
+  <data name="featuresInclude" xml:space="preserve">
+    <value>- Wykresy funkcji rzeczywistych i zespolonych
+
+- Rzeczywisty i zespolony kalkulator
+
+- Obliczenia numeryczne na funkcjach rzeczywistych, z uwzględnieniem różnych metod
+
+- Ponad 107 funkcji elementarnych
+
+- Ponad 141 funkcji specjalnych
+
+- Ponad 21 funkcji i operacji działających na macierzach
+
+- Potężny język skryptowy do prostych obliczeń, uwzględniając macierze
+
+- Możesz zadeklarować własne niestandardowe funkcje z języka skryptowego</value>
+  </data>
+  <data name="MemoryAllocationSpeedTestCancelledByUser" xml:space="preserve">
+    <value>Test wydajności alokacji pamięci anulowany przez użytkownika</value>
+  </data>
+  <data name="MemoryAllocationSpeedTestDoneSuccesfullyCheckOutYourPointsResult" xml:space="preserve">
+    <value>Test wydajności alokacji pamięci wykonano pomyślnie, sprawdź swoje wyniki</value>
+  </data>
+  <data name="Done" xml:space="preserve">
+    <value>Gotowe!</value>
+  </data>
+  <data name="Result" xml:space="preserve">
+    <value> wynik:</value>
+  </data>
+  <data name="Points" xml:space="preserve">
+    <value> Punkty!</value>
+  </data>
+  <data name="Canceled" xml:space="preserve">
+    <value>Odwołany!</value>
+  </data>
+  <data name="MathFunctionsCalculationSpeedTestDoneSuccesfullyCheckOutYourPointsResults" xml:space="preserve">
+    <value>Test wydajności obliczania matematycznych funkcji wykonano pomyślnie! Sprawdź swoje wyniki!</value>
+  </data>
+  <data name="MathFunctionsCalculationSpeedTestCancelledByUser" xml:space="preserve">
+    <value>Test wydajności obliczania matematycznych funkcji anulowany przez użytkownika.</value>
+  </data>
+  <data name="librariesUsed" xml:space="preserve">
+    <value>biblioteki używane</value>
+  </data>
+  <data name="betaTesters" xml:space="preserve">
+    <value>beta testerzy</value>
+  </data>
+  <data name="otherContributors" xml:space="preserve">
+    <value>inni uczestnicy</value>
+  </data>
+  <data name="translators" xml:space="preserve">
+    <value>tłumacze</value>
+  </data>
+  <data name="SpecialThanksTo" xml:space="preserve">
+    <value>Specjalne podziękowania dla:</value>
+  </data>
+  <data name="XYRatio0" xml:space="preserve">
+    <value>  |  X/Y stosunek = {0}  |</value>
+  </data>
+  <data name="Only_Real_mode_is_supported_in_Numerical_calculations_right_now__more_to_come_in_next_versions_" xml:space="preserve">
+    <value>Tylko tryb rzeczywisty jest wspierany w obliczeniach numerycznych na daną chwilę, więcej trybów w kolejnych wersjach!</value>
+  </data>
+  <data name="GlobalConfig_assemblyDescription_Computator_NET_is_a_special_kind_of_numerical_software_that_is_fast_and_easy_to_use_but_not_worse_than_others_feature_wise_" xml:space="preserve">
+    <value>Computator.NET to wyjątkowy program do obliczeń numerycznych, taki który jest szybki i łatwy w użyciu ale nie gorszy niż inne pod względem możliwości.</value>
+  </data>
+  <data name="GlobalConfig_others_Chart3D_classes_are_based_on_code_from_High_performance_WPF_3D_Chart_rev_6_application_on" xml:space="preserve">
+    <value>Klasy Chart3D bazują na kodzie aplikacji High performance WPF 3D Chart rev.6, opublikowanej na licencji</value>
+  </data>
+  <data name="GlobalConfig_others_standard_algorithm_for_complex_domain_coloring" xml:space="preserve">
+    <value>standardowy algorytm dla zespolonego kolorowania domeny</value>
+  </data>
+  <data name="AddTab_NewFile" xml:space="preserve">
+    <value>NowyPlik</value>
+  </data>
+  <data name="Close_tabs_to_the_left" xml:space="preserve">
+    <value>Zamknij karty na lewo</value>
+  </data>
+  <data name="Close_tabs_to_the_right" xml:space="preserve">
+    <value>Zamknij karty na prawo</value>
+  </data>
+  <data name="Close_other_tabs" xml:space="preserve">
+    <value>Zamknij inne karty</value>
+  </data>
+  <data name="Close_tab" xml:space="preserve">
+    <value>Zamknij kartę</value>
+  </data>
+  <data name="Clone_tab" xml:space="preserve">
+    <value>Sklonuj kartę</value>
+  </data>
+  <data name="New_tab" xml:space="preserve">
+    <value>Nowa karta</value>
+  </data>
+  <data name="Functions_and_Constants_Details" xml:space="preserve">
+    <value>Funkcje i Stałe - Szczegóły</value>
+  </data>
+  <data name="Number_of_steps_should_be_small__default_is_6" xml:space="preserve">
+    <value>Liczba kroków powinna być mała, domyślne jest 6</value>
+  </data>
+  <data name="Unhandled_UI_Exception" xml:space="preserve">
+    <value>Nieobsłużony wyjątek interfejsu użytkownika</value>
+  </data>
+  <data name="Program_Application_ThreadException_Unhandled_Thread_Exception" xml:space="preserve">
+    <value>Nieobsłużony wyjątek wątku</value>
+  </data>
+  <data name="The_invalid_characters_are" xml:space="preserve">
+    <value>Niepoprawne znaki to: '@','.', ',', '!'</value>
+  </data>
+  <data name="The_label_cannot_be_blank" xml:space="preserve">
+    <value>Nazwa nie może być pusta</value>
+  </data>
+  <data name="InvalidLabel" xml:space="preserve">
+    <value>Niepoprawna nazwa.</value>
+  </data>
+  <data name="Label_Edit_error" xml:space="preserve">
+    <value>Błąd edycji nazwy</value>
+  </data>
+  <data name="Delete_file" xml:space="preserve">
+    <value>Usuń plik</value>
+  </data>
+  <data name="Rename_file" xml:space="preserve">
+    <value>Zmień nazwę pliku</value>
+  </data>
+  <data name="Directory_tree_New_file" xml:space="preserve">
+    <value>Nowy plik</value>
+  </data>
+  <data name="Changelog" xml:space="preserve">
+    <value>Lista zmian</value>
+  </data>
+  <data name="You_dont_have_any_logs_yet_" xml:space="preserve">
+    <value>Nie masz jeszcze żadnych logów.</value>
+  </data>
+  <data name="Warning_" xml:space="preserve">
+    <value>Ostrzeżenie!</value>
+  </data>
+  <data name="Check__Real___f_x___mode" xml:space="preserve">
+    <value>-Wybierz tryb "Rzeczywisty : f(x)"</value>
+  </data>
+  <data name="Or_even_better_report_them_on_project_site__using_link_below" xml:space="preserve">
+    <value>Albo nawet lepiej zgłoś je na stronie projektu, używając poniższego linku</value>
+  </data>
+  <data name="NativeCompiler_error" xml:space="preserve">
+    <value>błąd</value>
+  </data>
+  <data name="NativeCompiler_warning" xml:space="preserve">
+    <value>ostrzeżenie</value>
+  </data>
+  <data name="NativeCompiler_Column" xml:space="preserve">
+    <value>Kolumna</value>
+  </data>
+  <data name="NativeCompiler_Line" xml:space="preserve">
+    <value>Linia</value>
+  </data>
+  <data name="Script_errors" xml:space="preserve">
+    <value>Błędy w skrypcie</value>
+  </data>
+  <data name="Expression_errors" xml:space="preserve">
+    <value>Błędy w wyrażeniu</value>
+  </data>
+  <data name="Custom_functions_errors" xml:space="preserve">
+    <value>Błędy w funkcjach własnych</value>
+  </data>
+  <data name="Internal_errors" xml:space="preserve">
+    <value>Błędy wewnętrzne</value>
+  </data>
+  <data name="Syntax_error" xml:space="preserve">
+    <value>Błąd składni</value>
+  </data>
+  <data name="Exception_during_startup" xml:space="preserve">
+    <value>Wyjątek podczas uruchamiania</value>
+  </data>
+  <data name="Error_code" xml:space="preserve">
+    <value>Kod błędu</value>
+  </data>
+  <data name="Reason" xml:space="preserve">
+    <value>Powód</value>
+  </data>
+  <data name="at_line" xml:space="preserve">
+    <value>w linii</value>
+  </data>
+  <data name="Exception_occcured_in" xml:space="preserve">
+    <value>Wyjątek zdarzył się w</value>
+  </data>
+  <data name="Exception" xml:space="preserve">
+    <value>wyjątek</value>
+  </data>
+  <data name="Program_CurrentDomain_UnhandledException_Try_installing_font_" xml:space="preserve">
+    <value>Spróbuj zainstalować czcionkę!</value>
+  </data>
+  <data name="CheckChartAreaValues" xml:space="preserve">
+    <value>Sprawdź wartości obszaru wykresu</value>
+  </data>
+  <data name="Min_value_needs_to_be_less_than_Max_value" xml:space="preserve">
+    <value>Wartość Min musi być mniejsza od wartości Max</value>
+  </data>
+  <data name="NeedsToBeLessThan" xml:space="preserve">
+    <value>musi być mniejsze niż</value>
+  </data>
+  <data name="NeedsToBeGreaterThan" xml:space="preserve">
+    <value>musi być większe niż</value>
+  </data>
+  <data name="Chart3D_is_not_supported_on_Mono" xml:space="preserve">
+    <value>Chart3D nie jest wspierany na Mono</value>
+  </data>
+  <data name="secant_Newton_Raphson_method" xml:space="preserve">
+    <value>metoda siecznych Newton-Raphson</value>
+  </data>
+  <data name="secant_method" xml:space="preserve">
+    <value>metoda siecznych</value>
+  </data>
+  <data name="bisection_method" xml:space="preserve">
+    <value>metoda bisekcji</value>
+  </data>
+  <data name="Brent_s_method" xml:space="preserve">
+    <value>metoda Brenta</value>
+  </data>
+  <data name="Broyden_s_method" xml:space="preserve">
+    <value>metoda Broydena</value>
+  </data>
+  <data name="infinity_adaptive_Gauss_Kronrod_method" xml:space="preserve">
+    <value>nieskończenie-adaptacyjna metoda Gauss-Kronrod</value>
+  </data>
+  <data name="non_adaptive_Gauss_Kronrod_method" xml:space="preserve">
+    <value>nie-adaptacyjna metoda Gauss-Kronrod</value>
+  </data>
+  <data name="centered_five_point_method" xml:space="preserve">
+    <value>wyśrodkowana metoda 5-punktów</value>
+  </data>
+  <data name="stable_finite_difference_formula" xml:space="preserve">
+    <value>stabilna skończona różnica</value>
+  </data>
+  <data name="two_point_finite_difference_formula" xml:space="preserve">
+    <value>2-punktowa skończona różnica</value>
+  </data>
+  <data name="finite_difference_formula" xml:space="preserve">
+    <value>skończona różnica</value>
+  </data>
+  <data name="centered_order_point_method" xml:space="preserve">
+    <value>wyśrodkowana metoda n-punktów</value>
+  </data>
+  <data name="Function_root" xml:space="preserve">
+    <value>Miejsca zerowe funkcji</value>
+  </data>
+  <data name="Derivative" xml:space="preserve">
+    <value>Pochodna</value>
+  </data>
+  <data name="Integral" xml:space="preserve">
+    <value>Całka</value>
+  </data>
+  <data name="Romberg_s_method" xml:space="preserve">
+    <value>metoda Romberga</value>
+  </data>
+  <data name="Monte_Carlo_method" xml:space="preserve">
+    <value>metoda Monte Carlo</value>
+  </data>
+  <data name="double_exponential_transformation" xml:space="preserve">
+    <value>podwójna eksponencjalna transformacja</value>
+  </data>
+  <data name="Simpson_s_method" xml:space="preserve">
+    <value>metoda Simpsona</value>
+  </data>
+  <data name="rectangle_method" xml:space="preserve">
+    <value>metoda prostokątów</value>
+  </data>
+  <data name="trapezoidal_method" xml:space="preserve">
+    <value>metoda trapezów</value>
+  </data>
+</root>

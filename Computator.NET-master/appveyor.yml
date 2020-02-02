@@ -1,0 +1,51 @@
+﻿version: 2.3.2.{build}
+
+environment:
+  COVERALLS_REPO_TOKEN:
+    secure: KEH5rJaqCoWoCV2MhkrMlClj3SVIlB2Eu0YK4mqmhRM+ANEfGiFyROo2RWHkJXQz
+
+image:
+- Visual Studio 2017
+- Ubuntu
+
+configuration:
+  - Debug
+  - Release
+
+assembly_info:
+  patch: true
+  file: '**\*SharedAssemblyInfo.*'
+  assembly_version: '{version}'
+  assembly_file_version: '{version}'
+  assembly_informational_version: "{version}β"
+
+before_build:
+  - cmd: build.cmd -Target Restore
+  - sh: ./build.sh --target=Restore
+
+build_script:
+  - cmd: build.cmd -Target Build
+  - sh: ./build.sh --target=Build
+
+test_script:
+  - cmd: build.cmd -Target AllTests
+  - sh: ./build.sh --target=AllTests
+
+after_test:
+  - cmd: build.cmd -Target Upload-Coverage
+
+after_build:
+  - cmd: build.cmd -Target Publish
+  - sh: ./build.sh --target=Publish
+
+notifications:
+- provider: GitHubPullRequest
+  on_build_success: true
+  on_build_failure: true
+  on_build_status_changed: true
+- provider: Email
+  to:
+  - pawel.troka@outlook.com
+  on_build_success: true
+  on_build_failure: true
+  on_build_status_changed: true

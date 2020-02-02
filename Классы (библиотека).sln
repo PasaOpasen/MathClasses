@@ -7,6 +7,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Классы (библио�
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Библиотека графики", "Библиотека графики\Библиотека графики.csproj", "{CE3C0ED7-208C-4043-89A9-19E93F1E2E46}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "nzy3d-winformsDemo", "nzy3d-api-master\nzy3d-api-master\nzy3d-winformsDemo\nzy3d-winformsDemo.csproj", "{8C148A22-B1DE-44F2-AEA8-90853DCA6EFE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Computator.NET", "Computator.NET-master\Computator.NET\Computator.NET.csproj", "{5731ED79-DFC9-41D5-8A2E-82C578AD1D96}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +25,14 @@ Global
 		{CE3C0ED7-208C-4043-89A9-19E93F1E2E46}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CE3C0ED7-208C-4043-89A9-19E93F1E2E46}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CE3C0ED7-208C-4043-89A9-19E93F1E2E46}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8C148A22-B1DE-44F2-AEA8-90853DCA6EFE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8C148A22-B1DE-44F2-AEA8-90853DCA6EFE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8C148A22-B1DE-44F2-AEA8-90853DCA6EFE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8C148A22-B1DE-44F2-AEA8-90853DCA6EFE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5731ED79-DFC9-41D5-8A2E-82C578AD1D96}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5731ED79-DFC9-41D5-8A2E-82C578AD1D96}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5731ED79-DFC9-41D5-8A2E-82C578AD1D96}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5731ED79-DFC9-41D5-8A2E-82C578AD1D96}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
