@@ -12,9 +12,15 @@
         /// </summary>
         /// <returns></returns>
         public static int NextNumber() => r.Next();
-
+        /// <summary>
+        /// Случайное число int до 0 до ceiling
+        /// </summary>
+        /// <param name="ceiling"></param>
+        /// <returns></returns>
         public static int NextNumber(int ceiling) => r.Next(ceiling);
-
+        /// <summary>
+        /// Случаное число от 0 до 1
+        /// </summary>
         public static double NextDouble => r.NextDouble();
 
         /// <summary>

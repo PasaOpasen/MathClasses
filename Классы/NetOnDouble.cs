@@ -9,7 +9,7 @@ namespace МатКлассы
     /// <summary>
     /// Сетка на отрезке действительной оси
     /// </summary>
-    public class NetOnDouble:Idup<NetOnDouble>
+    public sealed class NetOnDouble:Idup<NetOnDouble>
     {
         /// <summary>
         /// Начало отрезка

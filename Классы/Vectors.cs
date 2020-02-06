@@ -1573,7 +1573,10 @@ namespace МатКлассы
 
         public override bool Equals(object vv)
         {
-            Vectors v = vv as Vectors;
+            return this.Equals((Vectors)vv);
+        }
+        public bool Equals(Vectors v)
+        {
             if (this.Deg != v.Deg) return false;
             for (int i = 0; i < v.Deg; i++)
                 if (this.vector[i] != v[i]) return false;
