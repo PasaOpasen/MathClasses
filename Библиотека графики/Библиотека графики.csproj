@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{CE3C0ED7-208C-4043-89A9-19E93F1E2E46}</ProjectGuid>
+    <ProjectGuid>{72477714-ACF0-4659-A0DF-12F481BC85EC}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <RootNamespace>Библиотека_графики</RootNamespace>
     <AssemblyName>Библиотека графики</AssemblyName>
