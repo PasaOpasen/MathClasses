@@ -895,9 +895,10 @@ namespace МатКлассы
             {
                 s = GetStringArrayFromFile(filename, true)[0];
             }
-            catch
+            catch(Exception e)
             {
-                s = "";
+                Trace.WriteLine($"Ошибка при чтении: {e.Message}. Возвращаем пустую строку");
+                s = String.Empty;
             }
             return s;
         }
@@ -951,10 +952,11 @@ namespace МатКлассы
         /// <returns></returns>
         public static string StringArrayToString(string[] array)
         {
-            string res = "";
+            StringBuilder res = new StringBuilder(array.Length*array[0].Length);
             for (int i = 0; i < array.Length - 1; i++)
-                res += $"{array[i]}{Environment.NewLine}";
-            return res + array[array.Length - 1];
+                res.Append($"{array[i]}{Environment.NewLine}");
+            res.Append(array[^1]);
+            return res.ToString();
         }
 
         /// <summary>
@@ -1089,7 +1091,7 @@ namespace МатКлассы
                 }
             }
 
-            return new int[0];
+            return Array.Empty<int>();
         }
 
 

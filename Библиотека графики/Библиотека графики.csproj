@@ -139,13 +139,13 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\MathClassesLibrary\MathClassesLibrary.csproj">
-      <Project>{1c2eda9a-9f1f-4054-a768-4939b0e0a190}</Project>
-      <Name>MathClassesLibrary</Name>
-    </ProjectReference>
     <ProjectReference Include="..\nzy3d-api-master\nzy3d-api-master\nzy3d-winformsDemo\nzy3d-winformsDemo.csproj">
       <Project>{8c148a22-b1de-44f2-aea8-90853dca6efe}</Project>
       <Name>nzy3d-winformsDemo</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Классы\Классы %28библиотека%29.csproj">
+      <Project>{0178f934-a4a3-4a26-ae13-369fb421aa3d}</Project>
+      <Name>Классы %28библиотека%29</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
