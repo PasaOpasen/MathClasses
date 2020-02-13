@@ -40,6 +40,12 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>bin\Debug\alglibnet2.dll</HintPath>
     </Reference>
+    <Reference Include="Computator.NET.Core">
+      <HintPath>..\MathClassesLibrary\Resources\Computator.NET.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Computator.NET.Desktop">
+      <HintPath>..\Computator.NET-master\Computator.NET.Desktop\bin\Release\net461\Computator.NET.Desktop.dll</HintPath>
+    </Reference>
     <Reference Include="MathNet.Numerics, Version=4.9.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\MathNet.Numerics.4.9.0\lib\net461\MathNet.Numerics.dll</HintPath>
     </Reference>
@@ -102,12 +108,6 @@
     <Compile Include="Мат. классы2019.cs" />
     <Compile Include="Мат. классы2018.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Computator.NET-master\Computator.NET.Core\Computator.NET.Core.csproj">
-      <Project>{b1b07ffd-6af3-4a01-a839-6b652e4b3429}</Project>
-      <Name>Computator.NET.Core</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

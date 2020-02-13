@@ -42,6 +42,26 @@
     <UseVSHostingProcess>false</UseVSHostingProcess>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Computator.NET.Charting, Version=2.3.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Computator.NET.Desktop\bin\Release\net461\Computator.NET.Charting.dll</HintPath>
+    </Reference>
+    <Reference Include="Computator.NET.Core, Version=2.3.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Computator.NET.Desktop\bin\Release\net461\Computator.NET.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Computator.NET.DataTypes, Version=2.3.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Computator.NET.Desktop\bin\Release\net461\Computator.NET.DataTypes.dll</HintPath>
+    </Reference>
+    <Reference Include="Computator.NET.Desktop, Version=2.3.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Computator.NET.Desktop\bin\Release\net461\Computator.NET.Desktop.dll</HintPath>
+    </Reference>
+    <Reference Include="Computator.NET.Localization, Version=2.3.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Computator.NET.Desktop\bin\Release\net461\Computator.NET.Localization.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
@@ -54,16 +74,6 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="app.manifest" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Computator.NET.Core\Computator.NET.Core.csproj">
-      <Project>{b74cd9d5-d77e-418d-b50a-7ee5f040f819}</Project>
-      <Name>Computator.NET.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Computator.NET.Desktop\Computator.NET.Desktop.csproj">
-      <Project>{96b14e73-74bd-4c1f-968c-8cf4e2ea6ad6}</Project>
-      <Name>Computator.NET.Desktop</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
