@@ -2032,7 +2032,6 @@ namespace МатКлассы
             /// <returns></returns>
             public static double DoubleIntegralSuper(Functional f, Curve c, TripleFunc S, DefInteg.Method M = Method.GaussKronrod61, int cy = 200, double rmin = 0, int n = 61)
             {
-                double sum = 0;//окончательный результат
                 int countk = cy;//число колец
                 double ty = c.BaseRadius / cy;
 

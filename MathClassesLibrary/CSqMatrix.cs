@@ -34,53 +34,8 @@ namespace МатКлассы
             }
         }
 
-        //public SqMatrix RE
-        //{
-        //    get
-        //    {
-        //        if(needretr)
-        //        for (int i = 0; i < RowCount; i++)
-        //            for (int j = 0; j < RowCount; j++)
-        //                Re[i, j] = matr[i, j].Re;
-        //        return Re;
-        //    }
-        //}
-        //public SqMatrix IM
-        //{
-        //    get
-        //    {
-        //        if (needretr)
-        //            for (int i = 0; i < RowCount; i++)
-        //                for (int j = 0; j < RowCount; j++)
-        //                    Im[i, j] = matr[i, j].Im;
-        //        return Im;
-        //    }
-        //}
-
-        private Complex[,] matrtmp = null;
-        private bool needretr = false;
         private Complex[,] matr;
-        //{
-        //    get
-        //    {
-        //        if (matrtmp == null)
-        //        {
-        //            var matrtmp = new Complex[Re.n, Re.m];
-        //            for (int i = 0; i < matrtmp.GetLength(0); i++)
-        //                for (int j = 0; j < matrtmp.GetLength(1); j++)
-        //                    matrtmp[i, j] = new Complex(Re[i, j], Im[i, j]);
-        //        }
-        //        return matrtmp;
-        //    }
-        //    set
-        //    {
-        //        needretr = true;
-        //        matrtmp = new Complex[value.GetLength(0), value.GetLength(1)];
-        //        for (int i = 0; i < matrtmp.GetLength(0); i++)
-        //            for (int j = 0; j < matrtmp.GetLength(1); j++)
-        //                matrtmp[i, j] = new Complex(value[i, j]);
-        //    }
-        //}
+
 
         /// <summary>
         /// Вернуть массив комплексных чисел исходной матрицы
