@@ -17,9 +17,18 @@ namespace MathClassesTests
             
             double result = MySimpleGaussKronrod((double x) => x * x, begin, end);
 
-            Assert.AreEqual(result, x3(end) - x3(begin), 0.000001);
+            Assert.AreEqual(x3(end) - x3(begin),result,  0.000001);
         }
 
+        [TestCase(0, 100)]
+        [TestCase(5, 306)]
+        [TestCase(-Math.PI, Math.PI*200)]
+        public void IntegralofSinOnLongCut(double begin, double end)
+        { 
+            double result = MySimpleGaussKronrod(Math.Sin, begin, end,ChooseStepByCompareRes:true,MaxDivCount:6);
+
+            Assert.AreEqual( -Math.Cos(end) + Math.Cos(begin), result,0.000001);
+        }
 
 
     }
