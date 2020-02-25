@@ -263,11 +263,17 @@ namespace МатКлассы
 
                 return (b - a) / (2 * Math.PI) / n * sum;
             }
+            
             /// <summary>
             /// Класс методов, связанных с вычислением интеграла квадратурами Гаусса-Кронрода
-            /// </summary>
+            /// <remarks>Изначально алгоритм предназначался для интегририрования комплексной вектор-функции по контуру, так что код получился сложный (учитывая ещё и то, что был переписан с фортрана90 и чудом вообще работает)
+            /// Позднее я для диплома кое-как переписал алгоритм, чтобы он работал с обычными комплексными и действительными функциями напрямую (без лишних преобразований в массив длины 1 и т. п.)
+            /// Так что теперь часть кода работает для старых задач, часть для новых, и они почти независимы.
+            /// Старый метод вроде как работает только с 15 узлами, а для нового есть вариант выбрать 15, 21, 31, ... , 61 узлы</remarks>
+            /// </summary>               
             public static class GaussKronrod
             {
+                #region Declarations and initializations
                 static GaussKronrod()
                 {
                     MyGKInit();
@@ -394,13 +400,15 @@ namespace МатКлассы
                 /// <summary>
                 /// Размерность
                 /// </summary>
-                static int Nodes = 15, Nodes61 = 61;
+                static int Nodes = 15;
                 static bool Key = false;
                 static double RV_eps_step_increment, norm_param = 1;
-                static double[] GK_nodes, K_weights, G_weights, GK_nodes61, K_weights61, G_weights61;
+                static double[] GK_nodes, K_weights, G_weights;
                 static double h = 0.1;
                 static double eps = 0.001;
+                #endregion
 
+                #region Old shit
                 static void GK_7_15_init()
                 {
                     GK_nodes = new double[Nodes + 1];
@@ -504,7 +512,7 @@ namespace МатКлассы
                     int_h = Math.Abs((double)t_i_h);
                 }
                 /// <summary>
-                /// Интеграл по коченому отрезку
+                /// Интеграл по конечному отрезку
                 /// </summary>
                 /// <param name="int_func">Интегрируемая функция</param>
                 /// <param name="a">Начало отрезна интегрирования</param>
@@ -1027,9 +1035,18 @@ namespace МатКлассы
                     for (i = 0; i < N; i++)
                         ret_arr[i] = temp_arr[i, 1];
                 }
+                #endregion
 
+                #region Newest methods
+
+                /// <summary>
+                /// Arrays with nodes and weights
+                /// </summary>
                 private static double[] x15, x21, x31, x41, x51, x61, wgauss15, wgauss21, wgauss31, wgauss41, wgauss51, wgauss61, wkronrod15, wkronrod21, wkronrod31, wkronrod41, wkronrod51, wkronrod61, _x15, _x21, _x31, _x41, _x51, _x61, _wgauss15, _wgauss21, _wgauss31, _wgauss41, _wgauss51, _wgauss61, _wkronrod15, _wkronrod21, _wkronrod31, _wkronrod41, _wkronrod51, _wkronrod61;
-                private static int ng15 = 4, ng21 = 5, ng31 = 8, ng41 = 10, ng51 = 13, ng61 = 15;
+                private const int ng15 = 4, ng21 = 5, ng31 = 8, ng41 = 10, ng51 = 13, ng61 = 15;
+                /// <summary>
+                /// Initialising arrays
+                /// </summary>
                 private static void MyGKInit()
                 {
                     x15 = new double[15];
@@ -1469,10 +1486,13 @@ namespace МатКлассы
                 /// <summary>
                 /// Взятый с alglib метод Гаусса-Кронрода с выбором числа точек
                 /// </summary>
-                /// <param name="f"></param>
-                /// <param name="a"></param>
-                /// <param name="b"></param>
-                /// <param name="n"></param>
+                /// <param name="f">Функция Complex->Complex</param>
+                /// <param name="a">Начало отрезка интегрирования</param>
+                /// <param name="b">Конец отрезка интегрирования</param>
+                /// <param name="n">Число узлом</param>
+                /// <param name="ChooseStepByCompareRes">Нужно ли делить отрезок интегрирования, если с точностью обнаруживается лажа. Может сильно увеличить время вычислений.</param>
+                /// <param name="MaxDivCount">Если предыдущий параметр true, отрезок поделится максимум на 2^MaxDicCount кусков</param>
+                /// <param name="parallel">Вычислять ли значения функции в узлах параллельно. Рекомендуется только если функция вычисляется медленно (сама является каким-то интегралом или т. п.)</param>
                 /// <returns></returns>
                 public static Complex MySimpleGaussKronrod(ComplexFunc f, Complex a, Complex b, int n = 61, bool ChooseStepByCompareRes = false, int MaxDivCount = 3, bool parallel = false)
                 {
@@ -1550,7 +1570,7 @@ namespace МатКлассы
                         return sumKR / 2 * (b - a);
                 }
                 /// <summary>
-                /// Взятый с alglib метод Гаусса-Кронрода с выбором числа точек
+                /// Взятый с alglib метод Гаусса-Кронрода с выбором числа точек (копия прошлой функции для действительного случая)
                 /// </summary>
                 /// <param name="f"></param>
                 /// <param name="a"></param>
@@ -1559,10 +1579,83 @@ namespace МатКлассы
                 /// <returns></returns>
                 public static double MySimpleGaussKronrod(Func<double, double> f, double a, double b, int n = 61, bool ChooseStepByCompareRes = false, int MaxDivCount = 3, bool parallel = false)
                 {
-                    return MySimpleGaussKronrod((Complex t) => f(t.Re), new Complex(a), new Complex(b), n, ChooseStepByCompareRes, MaxDivCount, parallel).Re;
+                    double[] x;
+                    double[] wkronrod;
+                    double[] wgauss;
+
+                    //if (!(n == 15 | n == 21 | n == 31 | n == 41 | n == 51 | n == 61)) throw new Exception("GKQNodesTbl: incorrect N!");
+
+                    switch (n)
+                    {
+                        case 61:
+                            x = x61;
+                            wkronrod = wkronrod61;
+                            wgauss = wgauss61;
+                            break;
+                        case 15:
+                            x = x15;
+                            wkronrod = wkronrod15;
+                            wgauss = wgauss15;
+                            break;
+
+                        case 31:
+                            x = x31;
+                            wkronrod = wkronrod31;
+                            wgauss = wgauss31;
+                            break;
+                        case 41:
+                            x = x41;
+                            wkronrod = wkronrod41;
+                            wgauss = wgauss41;
+                            break;
+                        case 51:
+                            x = x15;
+                            wkronrod = wkronrod51;
+                            wgauss = wgauss51;
+                            break;
+                        case 21:
+                            x = x21;
+                            wkronrod = wkronrod21;
+                            wgauss = wgauss21;
+                            break;
+                        default:
+                            throw new Exception("GKQNodesTbl: incorrect N! (n должно быть 15/21/31/41/51/61)");
+                    }
+
+                    Func<double,double> t = (double r) => (a + (r + 1) / 2 * (b - a));
+                    double sumKR=0,sumGS=0;
+                    if (!parallel)
+                        for (int i = 0; i < n; i++)
+                        {
+                            double tmp = f(t(x[i]));
+                            sumKR += wkronrod[i] * tmp;
+                            sumGS += wgauss[i] * tmp;
+                        }
+                    else
+                    {
+                        double[] sumsK = new double[n], sumsG = new double[n];
+                        Parallel.For(0, n, (int i) =>
+                        {
+                            double tmp = f(t(x[i]));
+                            sumsK[i] = wkronrod[i] * tmp;
+                            sumsG[i] += wgauss[i] * tmp;
+                        });
+                        sumKR = sumsK.Sum();
+                        sumGS = sumsG.Sum();
+                    }
+
+
+                    if (!ChooseStepByCompareRes) return sumKR / 2 * (b - a);
+
+                    if (MaxDivCount > 0 &&  Math.Abs(sumGS - sumKR) > 1e-8)
+                        return MySimpleGaussKronrod(f, a, a + (b - a) / 2, n, true, MaxDivCount - 1, parallel) + MySimpleGaussKronrod(f, a + (b - a) / 2, b, n, true, MaxDivCount - 1, parallel);
+                    else
+                        return sumKR / 2 * (b - a);
+
+                   // return MySimpleGaussKronrod((Complex t) => f(t.Re), new Complex(a), new Complex(b), n, ChooseStepByCompareRes, MaxDivCount, parallel).Re;
                 }
                 /// <summary>
-                /// Метод Гаусса-Кронрода с выбором числа точек
+                /// Метод Гаусса-Кронрода с выбором числа точек (та же дичь для комплексной вектор-функции)
                 /// </summary>
                 /// <param name="f">Интегрируемая функция</param>
                 /// <param name="a">Начало отрезка интегрирования</param>
@@ -1708,6 +1801,8 @@ namespace МатКлассы
                 {
                     return GaussKronrodSum((Complex t) => f(t.Re), new Complex(a), new Complex(b), n, count).Re;
                 }
+
+                #endregion
             }
 
             private delegate double FUNC(Func<double, double> f, double a, double b);
@@ -1860,10 +1955,10 @@ namespace МатКлассы
             /// <param name="M">Метод обычного интегрирования</param>
             /// <param name="C">Критерий интегрирования</param>
             /// <param name="count">Число шагов (тоже не требуется)</param>
-            /// <param name="eps">Точность (требуется при определённом критерии интегрирования)</param>
-            /// <param name="parallel">Требуется ли считать интегралы по кольцам параллельно</param>
             /// <param name="tx">Шаг "по кольцу"</param>
             /// <param name="ty">Шаг "по радиусу фигуры"</param>
+            /// <param name="eps">Точность (требуется при определённом критерии интегрирования)</param>
+            /// <param name="parallel">Требуется ли считать интегралы по кольцам параллельно</param>
             /// <returns></returns>
             public static double DoubleIntegral(Functional f, Curve c, TripleFunc S, DefInteg.Method M = DefInteg.Method.Simpson, double tx = 0.01, double ty = 0.01, DefInteg.Criterion C = DefInteg.Criterion.StepCount, int count = 20, double eps = 0.001, bool parallel = true, bool makesort = true, double rmin = 0)
             {
@@ -2145,7 +2240,7 @@ namespace МатКлассы
             /// <returns></returns>
             public static double ImproperFirstKind(Func<double, double> f)
             {
-                double t_max = 10, t_step = 1;
+                const double t_max = 10, t_step = 1;
                 double t = 1;//длина шага в сумме интегралов; когда t большое или маленькое, интеграл считается слишком неточно - единица более-менее подходит для начального шага
                 double beg = 0, end = t, kp = Simpson(f, beg, end), km = Simpson(f, -end, -beg), sum = 0;
 
@@ -2180,7 +2275,7 @@ namespace МатКлассы
             /// <returns></returns>
             public static double ImproperFirstKindInf(Func<double, double> f, double a)
             {
-                double t_max = 100, t_step = 1;
+               const double t_max = 100, t_step = 1;
                 double t = 1;//длина шага в сумме интегралов; когда t большое или маленькое, интеграл считается слишком неточно - единица более-менее подходит для начального шага
                 double beg = a, end = a + t, kp = Simpson(f, beg, end), sum = 0;
 
@@ -2353,7 +2448,7 @@ namespace МатКлассы
             /// <summary>
             /// Кратный интеграл
             /// </summary>
-            public class AreaForDoubleInteg
+            public sealed class AreaForDoubleInteg
             {
                 /// <summary>
                 /// Верхний внешний предел
