@@ -165,6 +165,8 @@ namespace МатКлассы
 
         #endregion
 
+        #region Дичь, связанная с аппроксимацией
+
         /// <summary>
         /// Аппроксимация функций системой функций на отрезке
         /// </summary>
@@ -528,6 +530,8 @@ namespace МатКлассы
 
         }
 
+        #endregion
+
         /// <summary>
         /// Методы для действительных функций
         /// </summary>
@@ -726,6 +730,7 @@ namespace МатКлассы
             //static double h=0;
             /// <summary>
             /// Контроль над тем, модифицируется функция в методе или нет
+            /// <remarks>Модификация значит, что если найден корень х0 функции f, то далее будет искаться корень функции f(x)/(x-x0)</remarks>
             /// </summary>
             public enum ModifyFunction : byte
             {
@@ -840,12 +845,30 @@ namespace МатКлассы
                 return v;
             }
 
-            internal class PointC
+            #region Muller method by https://ru.wikipedia.org/wiki/Метод_Мюллера
+
+            /// <summary>
+            /// Пара комплексных чисел
+            /// </summary>
+            internal struct PointC
             {
                 internal Complex x, y;
                 internal PointC(Complex x, Complex y) { this.x = x; this.y = y; }
             }
 
+            /// <summary>
+            /// Разделённая разность по двум точкам
+            /// </summary>
+            /// <param name="a"></param>
+            /// <param name="b"></param>
+            /// <returns></returns>
+            private static Complex W(PointC a, PointC b) => (b.y - a.y) / (b.x - a.x);            
+
+            /// <summary>
+            /// Разделённая разность по массиву точек
+            /// </summary>
+            /// <param name="p"></param>
+            /// <returns></returns>
             private static Complex W(PointC[] p)
             {
                 Complex sum = new Complex(0, 0), pow = new Complex(1, 0);
@@ -935,7 +958,7 @@ namespace МатКлассы
             /// <param name="x2">Вторая точка</param>
             /// <param name="x3">Третья точка</param>
             /// <returns></returns>
-            public static Complex Muller(ComplexFunc f, Complex x1, Complex x2, Complex x3)
+            public static Complex Muller(ComplexFunc f, Complex x1, Complex x2, Complex x3,double eps=1e-12)
             {
                 PointC[] mas = new PointC[]
                 {
@@ -943,7 +966,7 @@ namespace МатКлассы
                     new PointC(x2,f(x2)),
                     new PointC(x3,f(x3))
                 };
-                Complex w = W(new PointC[] { mas[2], mas[1] }) + W(new PointC[] { mas[2], mas[0] }) - W(new PointC[] { mas[1], mas[0] });
+                Complex w = W( mas[2], mas[1] ) + W(mas[2], mas[0] ) - W(mas[1], mas[0]);
                 Complex f123 = W(mas);
                 Complex fk = f(x3);
                 Complex xk1;
@@ -951,11 +974,7 @@ namespace МатКлассы
 
                 do
                 {
-                    try
-                    {
-                        roots[0] = x3 - 2 * fk / (w + Complex.Sqrt(w * w - 4 * fk * f123));
-                    }
-                    catch (Exception e) { throw new Exception(e.Message); }
+                    roots[0] = x3 - 2 * fk / (w + Complex.Sqrt(w * w - 4 * fk * f123));
                     roots[1] = x3 - 2 * fk / (w - Complex.Sqrt(w * w - 4 * fk * f123));
                     xk1 = MinUnder(roots, x3);
 
@@ -970,12 +989,52 @@ namespace МатКлассы
                     };
                     fk = f(x3);
                     f123 = W(mas);
-                    w = W(new PointC[] { mas[2], mas[1] }) + W(new PointC[] { mas[2], mas[0] }) - W(new PointC[] { mas[1], mas[0] });
-                } while (fk.Abs > EPS && (x3 - x2).Abs > EPS /*&&(fk.Abs<f(x2).Abs)*/);
+                    w = W( mas[2], mas[1] ) + W( mas[2], mas[0] ) - W( mas[1], mas[0] );
+                } while (fk.Abs > eps && (x3 - x2).Abs > eps /*&&(fk.Abs<f(x2).Abs)*/);
 
                 return xk1;
 
             }
+
+            /// <summary>
+            /// Метод, использующий Muller не более чем maxcount раз для случайных точек из квадрата, пока не найдётся корень или не закончится предел итераций
+            /// </summary>
+            /// <param name="f"></param>
+            /// <param name="xmin"></param>
+            /// <param name="xmax"></param>
+            /// <param name="ymin"></param>
+            /// <param name="ymax"></param>
+            /// <param name="result"></param>
+            /// <param name="eps"></param>
+            /// <param name="maxcount"></param>
+            /// <remarks>При некоторых конфигурациях точек метод Muller может выродиться из-за близости двух точек для параболы из трёх</remarks>
+            /// <returns></returns>
+            public static bool MullerTrying(ComplexFunc f,double xmin,double xmax,double ymin,double ymax,out Complex result,double eps=1e-12,int maxcount = 1000)
+            {
+                double xh = xmax - xmin,yh=ymax-ymin;
+                Random gen = new Random();
+                Complex getComplex() => new Complex(xmin + xh * gen.NextDouble(), ymin + yh * gen.NextDouble());
+
+                int i = 0;
+                Complex z1, z2, z3;
+                while (i < maxcount)
+                {
+                    z1 = getComplex();
+                    z2 = getComplex();
+                    z3 = getComplex();
+
+                    result = Muller(f, z1, z2, z3, eps);
+
+                    if (f(result).Abs < eps)
+                        return true;
+
+                    i++;
+                }
+                result = Complex.I;
+                return false;
+            }
+            #endregion
+
             /// <summary>
             /// Наименее отклоняющаяся от комплексного числа точка из массива 
             /// </summary>
@@ -984,14 +1043,18 @@ namespace МатКлассы
             /// <returns></returns>
             private static Complex MinUnder(Complex[] x, Complex z)
             {
-                double v = (x[0] - z).Abs;
-                Complex val = x[0];
-                for (int i = 0; i < x.Length; i++)
-                    if ((x[i] - z).Abs < v)
+                double v = (x[0] - z).Abs,dt;
+                Complex val = x[0],tmp;
+                for (int i = 1; i < x.Length; i++)
+                {
+                    tmp = x[i];
+                    dt = (tmp - z).Abs;
+                    if (dt < v)
                     {
-                        v = (x[i] - z).Abs;
-                        val = x[i];
+                        v = dt;
+                        val = tmp;
                     }
+                }
                 return val;
             }
 
