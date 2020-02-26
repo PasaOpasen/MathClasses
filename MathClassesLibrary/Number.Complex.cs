@@ -413,6 +413,13 @@ namespace МатКлассы
             }
 
             /// <summary>
+            /// Округлённое число
+            /// </summary>
+            /// <param name="len"></param>
+            /// <returns></returns>
+            public Complex Round(int len=4) => new Complex(Math.Round(Re, len), Math.Round(Im, len));
+
+            /// <summary>
             /// Способ отображения комплексного числа в действительное
             /// </summary>
             public enum ComplMode : byte

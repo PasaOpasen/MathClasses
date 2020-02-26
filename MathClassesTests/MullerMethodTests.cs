@@ -5,6 +5,7 @@ using МатКлассы;
 using static МатКлассы.FuncMethods.Optimization;
 using NUnit.Framework;
 using Complex=МатКлассы.Number.Complex;
+using System.Linq;
 
 namespace MathClassesTests
 {
@@ -46,6 +47,18 @@ namespace MathClassesTests
         {
             bool val = MullerTrying((Complex z) => Complex.Sin(coef * z), xmin,xmax,ymin,ymax,out Complex res,maxcount:count);
             Assert.IsTrue(val, message: $"|Sin(root)| was {Complex.Sin(coef * res).Abs}");
+        }
+
+
+        [TestCase(1, 0, 10, 20, 3.9, 50)]
+        [TestCase(13, 4, 1, 2, 6, 50)]
+        [TestCase(55.8, 0.008, 1, -4, 3.5, 100)]
+        [TestCase(2, 50, 10, 2, 3, 100)]
+        [TestCase(-10.8, 4, 10, -20, 60, 100)]
+        public void RootofShTryMany(double coef, double xmin, double xmax, double ymin, double ymax, int count)
+        {
+            bool val = MullerTryMany((Complex z) => Complex.Sh(coef * z), xmin, xmax, ymin, ymax, out List<Complex> res, maxcount: count);
+            Assert.IsTrue(val, message: $"|Sh(root)| was {res.ToArray().Select(s=>Complex.Sh(coef*s).Abs).ToArray().ToStringMas().Aggregate((s,r)=>$"{s} {r}")}");
         }
     }
 }

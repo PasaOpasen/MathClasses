@@ -1033,6 +1033,45 @@ namespace МатКлассы
                 result = Complex.I;
                 return false;
             }
+
+
+            /// <summary>
+            /// Метод, использующий Muller maxcount раз для случайных точек из квадрата для поиска корней
+            /// </summary>
+            /// <param name="f"></param>
+            /// <param name="xmin"></param>
+            /// <param name="xmax"></param>
+            /// <param name="ymin"></param>
+            /// <param name="ymax"></param>
+            /// <param name="result"></param>
+            /// <param name="eps"></param>
+            /// <param name="maxcount"></param>
+            /// <remarks>При некоторых конфигурациях точек метод Muller может выродиться из-за близости двух точек для параболы из трёх</remarks>
+            /// <returns>Список из найденных корней (очень вероятно, что один и тот же корень встретится много раз с небольшими погрешностями)</returns>
+            public static bool MullerTryMany(ComplexFunc f, double xmin, double xmax, double ymin, double ymax, out List<Complex> result, double eps = 1e-12, int maxcount = 1000)
+            {
+                result = new List<Complex>(5);
+                double xh = xmax - xmin, yh = ymax - ymin;
+                Random gen = new Random();
+                Complex getComplex() => new Complex(xmin + xh * gen.NextDouble(), ymin + yh * gen.NextDouble());
+
+                int i = 0;
+                Complex z1, z2, z3,tmp;
+                while (i < maxcount)
+                {
+                    z1 = getComplex();
+                    z2 = getComplex();
+                    z3 = getComplex();
+
+                    tmp = Muller(f, z1, z2, z3, eps);
+
+                    if (f(tmp).Abs < eps)
+                        result.Add(tmp);
+
+                    i++;
+                }
+                return result.Count>0;
+            }
             #endregion
 
             /// <summary>
