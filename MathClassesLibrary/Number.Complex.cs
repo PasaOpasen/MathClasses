@@ -435,6 +435,18 @@ namespace МатКлассы
             public double ReIm => this.Re + this.Im;
 
 
+            public static Complex ToComplex(string s)
+            {
+                int recoef = s[0] == '-' ? -1 : 1;
+                string p = s.Replace(" ","")[((recoef==1)?0:1)..^1];
+                int imcoef = p.Contains('+') ? 1 : -1;
+
+                var ind = p.IndexOf(imcoef == 1 ? '+' : '-');
+
+                return new Complex(recoef*Convert.ToDouble(p[..ind]), imcoef*Convert.ToDouble(p[(ind+1)..]));
+            }
+
+
             public void FastAdd(Complex c)
             {
                 this.Re += c.Re;
