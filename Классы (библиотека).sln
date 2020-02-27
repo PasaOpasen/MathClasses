@@ -13,7 +13,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Computator.NET", "Computato
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MathClassesLibrary", "MathClassesLibrary\MathClassesLibrary.csproj", "{C40CE1D0-3CBB-4129-86CB-3332CE4FC0BB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MathClassesTests", "MathClassesTests\MathClassesTests.csproj", "{1C4ECBB9-DA95-4372-BD0A-B2970AC3ED53}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MathClassesTests", "MathClassesTests\MathClassesTests.csproj", "{1C4ECBB9-DA95-4372-BD0A-B2970AC3ED53}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

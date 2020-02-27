@@ -38,11 +38,11 @@ namespace MathClassesTests
 
     class ComplexParserTests
     {
-        //[Test]
+        [Test]
         public void ParsingTest1()
         {
-            const string formula = "cos(z)+2+sh(z)";
-            Func<Complex, Complex> expected = (Complex z) => Complex.Cos(z)+2+Complex.Sh(z);
+            const string formula =  "sh(z)+cos(z)*7,6+z*z/3+exp(z+sqrt(z))";
+            Func<Complex, Complex> expected = (Complex z) => Complex.Sh(z)+Complex.Cos(z)*7.6+z*z/3+Complex.Exp(z+Complex.Sqrt(z));
             Func<Complex, Complex> result = ParserComplex.GetDelegate(formula);
 
             Random rnd = new Random(22);
@@ -52,7 +52,7 @@ namespace MathClassesTests
                 tmp = new Complex(rnd.NextDouble()*10-5, rnd.NextDouble()*10-5);
                 v1 = expected(tmp);
                 v2 = result(tmp);
-                Assert.IsTrue(v1 == v2, $"Expected {v1} but was {v2} on arg = {tmp}; iter = {i+1}");
+                Assert.IsTrue((v1-v2).Abs<1e-10, $"Expected {v1} but was {v2} on arg = {tmp}; iter = {i+1}");
             }
 
         }

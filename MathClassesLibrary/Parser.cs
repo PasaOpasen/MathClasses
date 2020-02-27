@@ -297,7 +297,6 @@ namespace МатКлассы
         }
     }
 
-
     public sealed class ParserComplex
     {
         private string term = "";
@@ -354,10 +353,10 @@ namespace МатКлассы
             for (int i = 0; i < term.Length - 1; i++)
             {
                 char chh = term[i];
-                if (chh == '^' || chh == '*' || chh == '/' || chh == '+' || chh == '-' || chh == ',' || chh == ',')
+                if (chh == '^' || chh == '*' || chh == '/' || chh == '+' || chh == '-' || chh == ',' || chh == '.')
                 {
                     char ch = term[i + 1];
-                    while (ch == '^' || ch == '*' || ch == '/' || ch == '+' || ch == '-' || ch == ',' || ch == ',')
+                    while (ch == '^' || ch == '*' || ch == '/' || ch == '+' || ch == '-' || ch == ',' || ch == '.')
                     {
                         if (i + 2 < term.Length)
                             term = term.Substring(0, i + 1) + term.Substring(i + 2, term.Length - i - 2);
@@ -367,8 +366,7 @@ namespace МатКлассы
                         else ch = ' ';
                     }
                 }
-                if (chh == ')')
-                    if (Char.IsDigit(term[i + 1]))
+                if (chh == ')' && Char.IsDigit(term[i + 1]))
                         term = term.Substring(0, i + 1) + "*" + term.Substring(i + 1, term.Length - i - 1);
 
             }
@@ -381,7 +379,7 @@ namespace МатКлассы
 
             string[] st = term.Split('+', '-', '^', '*', '/', ',', '(', ')');
             Array.Sort(st);
-            st.Show();
+            //st.Show();
 
             for (int i = 0; i < st.Length; i++)
             {
@@ -396,9 +394,7 @@ namespace МатКлассы
                             break;
                         }
                     if (b)
-                        if (el != "sin" && el != "cos" && el != "tan" && el != "acos" && el != "asin"
-            && el != "atan" && el != "exp" && el != "log" && el != "abs" && el != "pi"
-            && el != "sqrt" && el != "sqr" && el != "cube" && el != "z")
+                        if (!IsFunc(el))
                             term = term.Replace(el, "z");
                 }
 
@@ -432,10 +428,11 @@ namespace МатКлассы
         /// <param name="str">Строка формулы</param>
         public ParserComplex(string s, Complex x) : this(x, s) { }
 
-        private void ShowT()
-        {
-            Console.WriteLine($"{term} {Nam} {arg}");
-        }
+        private void ShowT()=>Console.WriteLine($"{term} {Nam} {arg}");
+
+        private static bool IsFunc(string el) => !(el != "sin" && el != "cos" && el != "Im" && el != "Re" && el != "ch"
+                && el != "sh" && el != "exp" && el != "ln" && el != "abs" && el != "pi"
+                && el != "sqrt" && el != "sqr" && el != "cube");
 
         //Метод обработки функций и присваивания значения переменной
         private Complex Func(string s)
@@ -448,9 +445,7 @@ namespace МатКлассы
                 el += ch;
             }
 
-            if (el != "sin" && el != "cos" && el != "Im" && el != "Re" && el != "ch"
-                && el != "sh" && el != "exp" && el != "ln" && el != "abs" && el != "pi"
-                && el != "sqrt" && el != "sqr" && el != "cube") element = arg;
+            if (!IsFunc(el)) element = arg;
             else
             {
             var val = Complex.ToComplex(s.Substring(el.Length));
@@ -504,13 +499,13 @@ namespace МатКлассы
             if (Char.IsLetter(el[0]) && el.IndexOf('^') == -1) element = Func(el);
             else
             {
-                if (el.IndexOf('^') == -1) element = Convert.ToDouble(el);
+                if (el.IndexOf('^') == -1) element = Complex.ToComplex(el);
                 else element = Power(el);
             }
             if (el.Length < s.Length - 1)
             {
                 if (s[el.Length] == '*') element *= Element(s.Substring(el.Length + 1));
-                if (s[el.Length] == '/') element /= Element(s.Substring(el.Length + 1));
+                else if (s[el.Length] == '/') element /= Element(s.Substring(el.Length + 1));
             }
             return element;
         }
@@ -522,7 +517,7 @@ namespace МатКлассы
             Complex element;
             string s1 = s;
             string sstr;
-            if (s != "" && (s[0] == '+' || s[0] == '-')) co++;
+            if (s.Length>0 && (s[0] == '+' || s[0] == '-')) co++;
             for (int i = co; i < s.Length; i++)
             {
                 if (s[i] == '(')
@@ -531,7 +526,7 @@ namespace МатКлассы
                     s = el + sstr;
                     co = 0;
                     i = el.Length;
-                    if (sstr == "") break;
+                    if (sstr.Equals(string.Empty)) break;
                 }
                 if (s[i] == '+' || s[i] == '-') break;
                 el += s[i];
