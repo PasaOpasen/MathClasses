@@ -404,6 +404,13 @@ namespace МатКлассы
             }
             #endregion
 
+            /// <summary>
+            /// Главное значение комплексного логарифма
+            /// </summary>
+            /// <param name="z"></param>
+            /// <returns></returns>
+            public static Complex Ln(Complex z) => Math.Log(z.Abs) + new Complex(0, z.Arg);
+
             public int CompareTo(object obj) => CompareTo((Complex)obj);
             public int CompareTo(Complex c)
             {
@@ -437,6 +444,15 @@ namespace МатКлассы
 
             public static Complex ToComplex(string s)
             {
+                if (!s[^1].Equals('i'))
+                    return new Complex(Convert.ToDouble(s));
+
+                if (double.TryParse(s[..^1].Replace(" ", ""), out var rs))
+                    return new Complex(0, rs);
+
+                if (s.Contains('E') || s.Contains('e'))
+                    return ToComplexFromE(s);
+
                 int recoef = s[0] == '-' ? -1 : 1;
                 string p = s.Replace(" ","")[((recoef==1)?0:1)..^1];
                 int imcoef = p.Contains('+') ? 1 : -1;
@@ -444,6 +460,16 @@ namespace МатКлассы
                 var ind = p.IndexOf(imcoef == 1 ? '+' : '-');
 
                 return new Complex(recoef*Convert.ToDouble(p[..ind]), imcoef*Convert.ToDouble(p[(ind+1)..]));
+            }
+            private static Complex ToComplexFromE(string s)
+            {
+                int recoef = s[0] == '-' ? -1 : 1;
+                int imcoef = s.Contains(" + ") ? 1 : -1;
+                string p = s[((recoef == 1) ? 0 : 1)..^1];
+                
+                var ind = p.IndexOf(imcoef == 1 ? " + " : " - ");
+
+                return new Complex(recoef * Convert.ToDouble(p[..ind]), imcoef * Convert.ToDouble(p[(ind + 3)..]));
             }
 
 
