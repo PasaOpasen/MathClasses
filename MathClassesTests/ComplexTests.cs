@@ -56,5 +56,24 @@ namespace MathClassesTests
             }
 
         }
+
+        [Test]
+        public void ParsingTest2()
+        {
+            const string formula = "2+3*I+Re(z+Im(z))";
+            Func<Complex, Complex> expected = (Complex z) => new Complex(2,3)+(z+z.Im).Re;
+            Func<Complex, Complex> result = ParserComplex.GetDelegate(formula);
+
+            Random rnd = new Random(22);
+            Complex tmp, v1, v2;
+            for (int i = 0; i < 50; i++)
+            {
+                tmp = new Complex(rnd.NextDouble() * 10 - 5, rnd.NextDouble() * 10 - 5);
+                v1 = expected(tmp);
+                v2 = result(tmp);
+                Assert.IsTrue((v1 - v2).Abs < 1e-10, $"Expected {v1} but was {v2} on arg = {tmp}; iter = {i + 1}");
+            }
+
+        }
     }
 }

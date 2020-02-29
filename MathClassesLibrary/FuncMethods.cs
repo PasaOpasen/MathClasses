@@ -958,7 +958,7 @@ namespace МатКлассы
             /// <param name="x2">Вторая точка</param>
             /// <param name="x3">Третья точка</param>
             /// <returns></returns>
-            public static Complex Muller(ComplexFunc f, Complex x1, Complex x2, Complex x3,double eps=1e-12)
+            public static Complex Muller(ComplexFunc f, Complex x1, Complex x2, Complex x3,double eps=1e-12,int maxiterations=2000)
             {
                 PointC[] mas = new PointC[]
                 {
@@ -971,6 +971,7 @@ namespace МатКлассы
                 Complex fk = f(x3);
                 Complex xk1;
                 Complex[] roots = new Complex[2];
+                int i = 0;
 
                 do
                 {
@@ -990,6 +991,11 @@ namespace МатКлассы
                     fk = f(x3);
                     f123 = W(mas);
                     w = W( mas[2], mas[1] ) + W( mas[2], mas[0] ) - W( mas[1], mas[0] );
+
+                    //при зацикливании вывести среднее
+                    if (++i == maxiterations)
+                        return (x1 + x2 + x3) / 3;
+
                 } while (fk.Abs > eps && (x3 - x2).Abs > eps /*&&(fk.Abs<f(x2).Abs)*/);
 
                 return xk1;
@@ -1200,14 +1206,12 @@ namespace МатКлассы
             }
             private static Complex[] GlobalMax(ComplexFunc f, Complex[] p)
             {
-                var r = new List<Complex>();
-
                 Complex c = p[0];
                 for (int i = 1; i < p.Length; i++)
                     if (f(p[i]).Abs > f(c).Abs)
                         c = p[i];
 
-                return r.Where(n => f(n).Abs == f(c).Abs).ToArray();
+                return p.Where(n => f(n).Abs == f(c).Abs).ToArray();
             }
             private static bool ExistMin(ComplexFunc f, Complex a, Complex b)
             {

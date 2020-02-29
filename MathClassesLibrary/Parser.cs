@@ -432,7 +432,7 @@ namespace МатКлассы
 
         private static bool IsFunc(string el) => !(el != "sin" && el != "cos" && el != "Im" && el != "Re" && el != "ch"
                 && el != "sh" && el != "exp" && el != "ln" && el != "abs" && el != "pi"
-                && el != "sqrt" && el != "sqr" && el != "cube");
+                && el != "sqrt" && el != "sqr" && el != "cube"&& el != "I");
 
         //Метод обработки функций и присваивания значения переменной
         private Complex Func(string s)
@@ -448,6 +448,10 @@ namespace МатКлассы
             if (!IsFunc(el)) element = arg;
             else
             {
+                if (el == "I") element = Complex.I;
+                else if (el == "pi") element = Math.PI;
+                else
+                {
             var val = Complex.ToComplex(s.Substring(el.Length));
 
             if (el == "sin") element = Complex.Sin(val);
@@ -458,11 +462,13 @@ namespace МатКлассы
             if (el == "sqrt") element = Complex.Sqrt(val);
             if (el == "sqr") element = Complex.Pow(val, 2);
             if (el == "cube") element = Complex.Pow(val, 3);
-            if (el == "pi") element = Math.PI;
+
             if (el == "sh") element = Complex.Sh(val);
             if (el == "ch") element = Complex.Ch(val);
             if (el == "Re") element = val.Re;
             if (el == "Im") element = val.Im;
+                }
+
             }
 
             return element;
@@ -575,6 +581,20 @@ namespace МатКлассы
         public static Func<Complex, Complex> GetDelegate(string s)
         {
             var p = new ParserComplex(s);
+
+            return (Complex x) =>
+            {
+                p.arg = x;
+                p.Nam = p.Product(p.term);
+                return p.Nam;
+            };
+        }
+
+        public static Func<Complex, Complex> GetDelegate(string s,out string fm)
+        {
+            var p = new ParserComplex(s);
+
+            fm = ParserComplex.FORMULA;
 
             return (Complex x) =>
             {

@@ -140,6 +140,9 @@ namespace МатКлассы
         /// <param name="i"></param>
         public static void Show<T>(this T i) => Console.WriteLine(i.ToString());
 
+
+
+
         /// <summary>
         /// Строковое представление массива
         /// </summary>
