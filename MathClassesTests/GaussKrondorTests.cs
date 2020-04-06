@@ -30,6 +30,24 @@ namespace MathClassesTests
             Assert.AreEqual( -Math.Cos(end) + Math.Cos(begin), result,0.000001);
         }
 
+        [TestCase(100,1,4,15)]
+        [TestCase(100, 1, 4, 21)]
+        [TestCase(100, 1, 4, 31)]
+        [TestCase(100, 1, 4, 41)]
+        [TestCase(100, 1, 4, 61)]
+        [TestCase(10, 1, 4, 31)]
+        [TestCase(-1.2002, -1, 4, 41)]
+        [TestCase(100, 1, 4, 15)]
+        [TestCase(1, -5, 4, 21)]
+        [TestCase(70, 1, 45, 31)]
+        public void SuperSin(double p,double begin,double end,int n)
+        {
+            Func<double, double> g = (double x) => -x / p * Math.Cos(p * x) + (1 / p) * (1 / p) * Math.Sin(p * x);
 
+
+            double result= MySimpleGaussKronrod(x=>x*Math.Sin(x*p), begin, end, ChooseStepByCompareRes: true, MaxDivCount: 6, n:n);
+
+            Assert.AreEqual(g(end) - g(begin), result, 0.00001);
+        }
     }
 }

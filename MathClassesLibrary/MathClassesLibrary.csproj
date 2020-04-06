@@ -5,12 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="JonSkeet.MiscUtil" Version="0.2.0" />
     <PackageReference Include="MathNet.Numerics" Version="4.9.0" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\Computator.NET-master\Computator.NET\Computator.NET.csproj" />
   </ItemGroup>
 
   <ItemGroup>
