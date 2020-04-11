@@ -13,6 +13,8 @@ Set of simple mathematical classes in C# including
 * Function approximation
 * Function optimization
 
-I've been creating this library since 2017 for my university homework and firts job
+I've been creating this library since 2017 for my university homework and firts job.
+
+There are .NET Framework version and newest .NET Core copy with few upgrading
 
 See some examples of using and results ![here](https://github.com/PasaOpasen/Old_Math_CSharpCpp_Projects)
