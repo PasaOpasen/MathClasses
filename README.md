@@ -1,4 +1,4 @@
-# Math Classes on CSharp
+# Math Classes in CSharp
 
 Set of simple mathematical classes in C# including
 
