@@ -15,7 +15,7 @@ Set of simple mathematical classes in C# including
 * Function optimization
 * Function values memorising (memoize)
 
-I've been creating this library since 2017 for my university homework and firts job. Writing it I was practicing my C# skills from c# 3.0 to C# 7.1, getting coding experience.
+I've been creating this library since 2017 for my university homework and firts job. Writing it I was practicing my C# skills from C# 3.0 to C# 7.1, getting coding experience.
 
 There are .NET Framework version and newest supported .NET Core (named MathClassesLibrary) copy with few upgrading.
 
