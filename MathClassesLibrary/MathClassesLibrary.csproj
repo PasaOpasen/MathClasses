@@ -2,6 +2,11 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
+    <Authors>Demetry Pascal</Authors>
+    <Company>NoNoNo</Company>
+    <PackageId>MathClassesDmPa</PackageId>
+    <Version>0.9.0</Version>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
   </PropertyGroup>
 
   <ItemGroup>
