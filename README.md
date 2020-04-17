@@ -28,7 +28,7 @@ See some examples of using and results [here](https://github.com/PasaOpasen/Old_
 [Download from **NuGet**](https://www.nuget.org/packages/MathClassesDmPa/)
 
 Downloading in VS:
-[1](https://github.com/PasaOpasen/MathClasses/blob/master/gifs/download.gif)
+![1](https://github.com/PasaOpasen/MathClasses/blob/master/gifs/download.gif)
 
 Usage:
-[1](https://github.com/PasaOpasen/MathClasses/blob/master/gifs/usage.gif)
+![1](https://github.com/PasaOpasen/MathClasses/blob/master/gifs/usage.gif)
