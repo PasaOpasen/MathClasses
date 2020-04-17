@@ -1078,6 +1078,9 @@ namespace МатКлассы
                 }
                 return result.Count>0;
             }
+
+
+
             #endregion
 
             /// <summary>
