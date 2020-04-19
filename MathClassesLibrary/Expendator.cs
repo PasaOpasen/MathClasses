@@ -62,6 +62,7 @@ namespace МатКлассы
         public static ComplexFunc ToCompFunc(RealFuncOfCompArg f) => (Complex z) => f(z);
         #endregion
 
+        #region Минимальные-максимальные значения
         /// <summary>
         /// Минимальное из кучи
         /// </summary>
@@ -105,14 +106,6 @@ namespace МатКлассы
             return max;
         }
 
-        public static void Swap<T>(ref T lhs, ref T rhs)
-        {
-            T temp;
-            temp = lhs;
-            lhs = rhs;
-            rhs = temp;
-        }
-
         public static double Min(MultiFunc F)
         {
             return -1;
@@ -133,6 +126,8 @@ namespace МатКлассы
                         d = mas[i, j];
             return d;
         }
+        #endregion
+
 
         /// <summary>
         /// Вывести строковое предаставление типа на консоль
@@ -140,8 +135,13 @@ namespace МатКлассы
         /// <param name="i"></param>
         public static void Show<T>(this T i) => Console.WriteLine(i.ToString());
 
-
-
+        public static void Swap<T>(ref T lhs, ref T rhs)
+        {
+            T temp;
+            temp = lhs;
+            lhs = rhs;
+            rhs = temp;
+        }
 
         /// <summary>
         /// Строковое представление массива
