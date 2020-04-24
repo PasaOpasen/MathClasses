@@ -7,7 +7,7 @@
     <PackageId>MathClassesDmPa</PackageId>
     <Version>0.9.0.1</Version>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
-    <Description>Set of simple mathematical classes in C# (Vectors, Matrixes, Polynoms, Systems of linear equations, Integrals methods, Complex numbers, Rational numbers, Graphs, Methods for solving differential equations) + some features such as memoize (function values memorising)</Description>
+    <Description>Set of simple mathematical classes in (Vectors, Matrixes, Polynoms, Systems of linear equations, Integrals methods, Complex numbers, Rational numbers, Graphs, Methods for solving differential equations) + some features such as memoize (function values memorising)</Description>
     <PackageProjectUrl>https://github.com/PasaOpasen/MathClasses</PackageProjectUrl>
   </PropertyGroup>
 
