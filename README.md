@@ -25,8 +25,7 @@ See some examples of using and results [here](https://github.com/PasaOpasen/Old_
 
 ## Download and usage
 
-[Download from **NuGet**](https://www.nuget.org/packages/MathClassesDmPa/)
-![Download from **NuGet**](https://buildstats.info/nuget/MathClassesDmPa)
+![Download from **NuGet**](https://buildstats.info/nuget/MathClassesDmPa) [Download from **NuGet**](https://www.nuget.org/packages/MathClassesDmPa/)
 
 Downloading in VS:
 
