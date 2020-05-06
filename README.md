@@ -21,7 +21,7 @@ I've been creating this library since 2017 for my university homework and firts 
 
 There are .NET Framework version and newest supported .NET Core (named MathClassesLibrary) copy with few upgrading.
 
-See some examples of using and results [here](https://github.com/PasaOpasen/Old_Math_CSharpCpp_Projects)
+See some examples of using and results [here](https://github.com/PasaOpasen/Old_Math_CSharpCpp_Projects) or [here](https://github.com/PasaOpasen/Search-for-defects-in-plates)
 
 ## Download and usage
 
