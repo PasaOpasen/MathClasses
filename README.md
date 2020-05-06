@@ -14,6 +14,7 @@ Set of simple mathematical classes in C# including
 * Graphs 
 * Methods for solving simple differential equations
 * Function approximation/interpolation
+* Net functions methods
 * Function optimization (including swarm algorithm for 1/2/n dimentions)
 * Function values memorising (memoize) for parallel/non-parallel cases 
 
