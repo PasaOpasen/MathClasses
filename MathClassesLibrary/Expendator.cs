@@ -17,6 +17,14 @@ namespace МатКлассы
     /// </summary>
     public static class Expendator
     {
+        /// <summary>
+        /// Theread-Safe random generator (from MathNet)
+        /// </summary>
+        public static readonly SystemRandomSource ThreadSafeRandomGenerator = new SystemRandomSource(true);
+
+        /// <summary>
+        /// Ready simple random generator
+        /// </summary>
         static readonly SystemRandomSource randomgen = new SystemRandomSource();
 
 
@@ -533,7 +541,7 @@ namespace МатКлассы
         }
 
         /// <summary>
-        /// Вывести пустую строку
+        /// Вывести пустую строку / Show 1 or more empty lines
         /// </summary>
         public static void EmptyLine(int count =1)
         {

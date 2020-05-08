@@ -5,9 +5,9 @@
     <Authors>Demetry Pascal</Authors>
     <Company>NoNoNo</Company>
     <PackageId>MathClassesDmPa</PackageId>
-    <Version>0.9.0.1</Version>
+    <Version>0.9.0.2</Version>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
-    <Description>Set of simple mathematical classes in (Vectors, Matrixes, Polynoms, Systems of linear equations, Integrals methods, Complex numbers, Rational numbers, Graphs, Methods for solving differential equations) + some features such as memoize (function values memorising)</Description>
+    <Description>Set of simple mathematical classes in (Vectors, Matrixes, Polynoms, Systems of linear equations, Integrals methods, Complex numbers, Rational numbers, Graphs, Methods for solving differential equations) + some features such as memoize (function values memorising). Набор простых математических классов: векторы, матрицы, полиномы, комплексные числа, методы решения СЛАУ, интегрирование, поиск минимумов (в том числе алгоритм роя частиц), мемоизация и небольшие фичи.</Description>
     <PackageProjectUrl>https://github.com/PasaOpasen/MathClasses</PackageProjectUrl>
   </PropertyGroup>
 
