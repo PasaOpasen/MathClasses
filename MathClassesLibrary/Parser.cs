@@ -16,7 +16,7 @@ namespace МатКлассы
         public static string FORMULA { get; private set; } = "";
 
         private double arg = 0;
-       
+
         /// <summary>
         /// Конструктор для выражений без переменных (переменная считается нулевой)
         /// </summary>
@@ -149,6 +149,9 @@ namespace МатКлассы
         private double Func(string s)
         {
             double element = 0.0;
+            //if (s.Length == 1 && Char.IsLetter(s[0]))
+            //    return element;
+
             string el = "";
             foreach (char ch in s)
             {
@@ -156,7 +159,12 @@ namespace МатКлассы
                 el += ch;
             }
 
-            var val = Convert.ToDouble(s.Substring(el.Length));
+            //if (s.Length == el.Length)
+            //    return 0;
+            if (!IsFunc(el)) element = arg;
+            else
+            {
+var val = Convert.ToDouble(s.Substring(el.Length));
 
             if (el == "sin") element = Math.Sin(val);
             if (el == "cos") element = Math.Cos(val);
@@ -171,13 +179,16 @@ namespace МатКлассы
             if (el == "sqr") element = Math.Pow(val, 2);
             if (el == "cube") element = Math.Pow(val, 3);
             if (el == "pi") element = Math.PI;
-
-            if (el != "sin" && el != "cos" && el != "tan" && el != "acos" && el != "asin"
-                && el != "atan" && el != "exp" && el != "log" && el != "abs" && el != "pi"
-                && el != "sqrt" && el != "sqr" && el != "cube") element = arg;
-
+            }
+            
             return element;
         }
+
+        private static bool IsFunc(string el) => !(el != "sin" && el != "cos" && el != "tan" && el != "acos" && el != "asin"
+                && el != "atan" && el != "exp" && el != "log" && el != "abs" && el != "pi"
+                && el != "sqrt" && el != "sqr" && el != "cube");
+
+
         //Метод возведения в степень
         private double Power(string s)
         {
@@ -283,16 +294,16 @@ namespace МатКлассы
         /// </summary>
         /// <param name="s">Формула функции</param>
         /// <returns></returns>
-        public static Func<double,double> GetDelegate(string s)
+        public static Func<double, double> GetDelegate(string s)
         {
             Parser p = new Parser(s);
 
-            Func<double,double> f = (double x) =>
-            {
-                p.arg = x;
-                p.Nam = p.Product(p.term);
-                return p.Nam;
-            };
+            Func<double, double> f = (double x) =>
+             {
+                 p.arg = x;
+                 p.Nam = p.Product(p.term);
+                 return p.Nam;
+             };
             return f;
         }
     }
@@ -367,7 +378,7 @@ namespace МатКлассы
                     }
                 }
                 if (chh == ')' && Char.IsDigit(term[i + 1]))
-                        term = term.Substring(0, i + 1) + "*" + term.Substring(i + 1, term.Length - i - 1);
+                    term = term.Substring(0, i + 1) + "*" + term.Substring(i + 1, term.Length - i - 1);
 
             }
         }
@@ -428,11 +439,11 @@ namespace МатКлассы
         /// <param name="str">Строка формулы</param>
         public ParserComplex(string s, Complex x) : this(x, s) { }
 
-        private void ShowT()=>Console.WriteLine($"{term} {Nam} {arg}");
+        private void ShowT() => Console.WriteLine($"{term} {Nam} {arg}");
 
         private static bool IsFunc(string el) => !(el != "sin" && el != "cos" && el != "Im" && el != "Re" && el != "ch"
                 && el != "sh" && el != "exp" && el != "ln" && el != "abs" && el != "pi"
-                && el != "sqrt" && el != "sqr" && el != "cube"&& el != "I");
+                && el != "sqrt" && el != "sqr" && el != "cube" && el != "I");
 
         //Метод обработки функций и присваивания значения переменной
         private Complex Func(string s)
@@ -441,7 +452,7 @@ namespace МатКлассы
             string el = "";
             foreach (char ch in s)
             {
-                if (!Char.IsLetter(ch) || ch=='i' /*|| ch!='x'*/) break;
+                if (!Char.IsLetter(ch) || ch == 'i' /*|| ch!='x'*/) break;
                 el += ch;
             }
 
@@ -452,21 +463,21 @@ namespace МатКлассы
                 else if (el == "pi") element = Math.PI;
                 else
                 {
-            var val = Complex.ToComplex(s.Substring(el.Length));
+                    var val = Complex.ToComplex(s.Substring(el.Length));
 
-            if (el == "sin") element = Complex.Sin(val);
-            if (el == "cos") element = Complex.Cos(val);
-            if (el == "exp") element = Complex.Exp(val);
-            if (el == "ln") element = Complex.Ln(val);
-            if (el == "abs") element = val.Abs;
-            if (el == "sqrt") element = Complex.Sqrt(val);
-            if (el == "sqr") element = Complex.Pow(val, 2);
-            if (el == "cube") element = Complex.Pow(val, 3);
+                    if (el == "sin") element = Complex.Sin(val);
+                    if (el == "cos") element = Complex.Cos(val);
+                    if (el == "exp") element = Complex.Exp(val);
+                    if (el == "ln") element = Complex.Ln(val);
+                    if (el == "abs") element = val.Abs;
+                    if (el == "sqrt") element = Complex.Sqrt(val);
+                    if (el == "sqr") element = Complex.Pow(val, 2);
+                    if (el == "cube") element = Complex.Pow(val, 3);
 
-            if (el == "sh") element = Complex.Sh(val);
-            if (el == "ch") element = Complex.Ch(val);
-            if (el == "Re") element = val.Re;
-            if (el == "Im") element = val.Im;
+                    if (el == "sh") element = Complex.Sh(val);
+                    if (el == "ch") element = Complex.Ch(val);
+                    if (el == "Re") element = val.Re;
+                    if (el == "Im") element = val.Im;
                 }
 
             }
@@ -485,7 +496,7 @@ namespace МатКлассы
             }
             if (Char.IsLetter(el[0])) element = arg;
             else element = Complex.ToComplex(el);
-            if (s.Length-el.Length>0)
+            if (s.Length - el.Length > 0)
             {
                 element = Complex.Pow(element, Element(s.Substring(el.Length + 1)).Re);
             }
@@ -523,7 +534,7 @@ namespace МатКлассы
             Complex element;
             string s1 = s;
             string sstr;
-            if (s.Length>0 && (s[0] == '+' || s[0] == '-')) co++;
+            if (s.Length > 0 && (s[0] == '+' || s[0] == '-')) co++;
             for (int i = co; i < s.Length; i++)
             {
                 if (s[i] == '(')
@@ -590,7 +601,7 @@ namespace МатКлассы
             };
         }
 
-        public static Func<Complex, Complex> GetDelegate(string s,out string fm)
+        public static Func<Complex, Complex> GetDelegate(string s, out string fm)
         {
             var p = new ParserComplex(s);
 

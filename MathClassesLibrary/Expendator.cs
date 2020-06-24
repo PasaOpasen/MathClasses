@@ -22,10 +22,14 @@ namespace МатКлассы
         /// </summary>
         public static readonly SystemRandomSource ThreadSafeRandomGenerator = new SystemRandomSource(true);
 
+        public static SystemRandomSource ThreadSafeRandomGen(int seed) => new SystemRandomSource(seed, true);
+
         /// <summary>
         /// Ready simple random generator
         /// </summary>
         static readonly SystemRandomSource randomgen = new SystemRandomSource();
+
+
 
 
         #region Функциональные переводчик

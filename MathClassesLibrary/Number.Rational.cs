@@ -68,12 +68,8 @@ namespace МатКлассы
             /// Рациональное число по "действительному" числу
             /// </summary>
             /// <param name="x"></param>
-            public Rational(double x)
-            {
-                Numerator = 0;
-                Denominator = 0;
-                ToRational(x);
-            }
+            public Rational(double x) : this(ToRational(x)) { }
+           
             #endregion
 
             #region Вспомогательные методы
