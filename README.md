@@ -1,5 +1,7 @@
 # Math Classes in CSharp
 
+[![NuGet version](https://buildstats.info/nuget/MathClassesDmPa)](https://www.nuget.org/packages/MathClassesDmPa/)
+
 ## About
 
 Set of simple mathematical classes in C# including
@@ -24,14 +26,12 @@ There are .NET Framework version and newest supported .NET Core (named MathClass
 
 See some examples of using and results [here](https://github.com/PasaOpasen/Old_Math_CSharpCpp_Projects) or [here](https://github.com/PasaOpasen/Search-for-defects-in-plates)
 
-## Download and usage
-
-![Download from **NuGet**](https://buildstats.info/nuget/MathClassesDmPa) [Download from **NuGet**](https://www.nuget.org/packages/MathClassesDmPa/)
+## How to download
 
 Downloading in VS:
 
 ![1](https://github.com/PasaOpasen/MathClasses/blob/master/gifs/download.gif)
 
-Usage:
+## Usage:
 
 ![1](https://github.com/PasaOpasen/MathClasses/blob/master/gifs/usage.gif)
