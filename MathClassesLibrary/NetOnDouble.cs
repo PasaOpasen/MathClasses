@@ -61,7 +61,7 @@ namespace МатКлассы
         public NetOnDouble(double begin, double end, double step)
         {
             Begin = begin;
-            Count = (int)Math.Floor(Math.Abs(end - begin) / step);
+            Count = (int)Math.Floor(Math.Abs(end - begin) / step)+1;
             Step = step;
 
             End = end;

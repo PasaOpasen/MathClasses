@@ -21,7 +21,13 @@ namespace Examples
 
             //Ex.VectorExamples();
 
-            Ex.CVectorExamples();
+            //Ex.CVectorExamples();
+
+            //Ex.SqMatrixExamples();
+
+            //Ex.RandomNumbersExamples();
+
+            //Ex.NetOnDoubleExamples();
 
             Console.ReadKey();
         }
@@ -216,11 +222,76 @@ namespace Examples
 
         }
 
+        public static void SqMatrixExamples()
+        {
+            var mat = new SqMatrix(new double[,] { { 1, -5 }, { -40, 0.632 } });
+
+            mat.PrintMatrix();
+//  1      -5
+//- 40     0,632
+
+            var i = SqMatrix.I(mat.RowCount);
+
+            i.PrintMatrix();
+            //1       0
+            //0       1
+
+            var mat2 = mat + i * 40;
+
+            mat2.PrintMatrix();
+            //41      -5
+            //-40     40,632
+
+            var inv = mat.Invertion;
+            inv.PrintMatrix();
+            //-0,003170017254524297   -0,02507925043136311
+            //-0,20063400345090485 - 0,0050158500862726215
+
+                      (inv * mat).PrintMatrix();
+            //1       0
+            //2,7755575615628914E-17  0,9999999999999999
 
 
+                        (inv * mat).Track.Show(); // 2
 
 
+            (inv * mat).CubeNorm.Show(); // 1
 
+            (inv * mat).Det.Show(); // 0,9999999999999999
+
+            mat.Solve(new Vectors(4.0, -5)).Show(); // (       0,11271618313871837     -0,7774567633722562     )
+
+        }
+
+        public static void RandomNumbersExamples()
+        {
+            RandomNumbers.SetSeed(0);
+
+            RandomNumbers.NextDouble.Show(); // 0,7262432699679598
+
+            RandomNumbers.NextDouble2(min: 40, max: 50).Show(); // 48,173253595909685
+
+            RandomNumbers.NextNumber().Show(); // 1649316166
+        }
+
+        public static void NetOnDoubleExamples()
+        {
+            void show(NetOnDouble n) => new Vectors(n.Array).Show();
+
+            var net = new NetOnDouble(begin: -1, end: 1, count: 8); // like numpy.linspase
+
+            show(net); // (       -1      -0,7142857142857143     -0,4285714285714286     -0,1428571428571429     0,1428571428571428      0,4285714285714284      0,7142857142857142      1       )
+
+            net = new NetOnDouble(begin: -1, end: 1, step: 0.3); // like numpy.arange
+
+            show(net); // (       -1      -0,7    -0,4    -0,10000000000000009    0,19999999999999996     0,5     0,7999999999999998      )
+
+            var net2 = new NetOnDouble(net, newCount: 5);
+
+            show(net2); // (       -1      -0,6    -0,19999999999999996    0,20000000000000018     0,6000000000000001      )
+
+
+        }
 
 
 

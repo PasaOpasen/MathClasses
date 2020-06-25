@@ -5,7 +5,9 @@
     /// </summary>
     public static class RandomNumbers
     {
-        private static MathNet.Numerics.Random.CryptoRandomSource r=new MathNet.Numerics.Random.CryptoRandomSource();
+        private static MathNet.Numerics.Random.SystemRandomSource r=new MathNet.Numerics.Random.SystemRandomSource(true);
+
+        public static void SetSeed(int seed) => r = new MathNet.Numerics.Random.SystemRandomSource(seed, true);
 
         /// <summary>
         /// Случайное положительное число типа int
@@ -18,6 +20,7 @@
         /// <param name="ceiling"></param>
         /// <returns></returns>
         public static int NextNumber(int ceiling) => r.Next(ceiling);
+        
         /// <summary>
         /// Случаное число от 0 до 1
         /// </summary>
