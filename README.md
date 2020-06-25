@@ -108,7 +108,7 @@ var a = new Rational(2123343454656);
 
 ```csharp
 var p1 = new Point(1, 4);
-            p1.Show(); // (1 , 4)
+p1.Show(); // (1 , 4)
 
             Point.Add(p1, 3).Show(); // (4 , 7)
             Point.Add(p1, -1, -3).Show(); // (0 , 1)
