@@ -29,6 +29,10 @@ namespace Examples
 
             //Ex.NetOnDoubleExamples();
 
+            //Ex.IntegExamples();
+
+            Ex.MemoizeExamples();
+
             Console.ReadKey();
         }
     }
@@ -293,7 +297,74 @@ namespace Examples
 
         }
 
+        public static void IntegExamples()
+        {
 
+            Func<double, double> freal = x => (x-4 + Math.Sin(x*10)) / (1 + x * x);
+
+            double integral = FuncMethods.DefInteg.GaussKronrod.GaussKronrodSum(freal, a: -3, b: 3, n: 61, count: 5);
+
+            integral.Show(); // -9,992366179186035
+
+            Complex integ = FuncMethods.DefInteg.GaussKronrod.GaussKronrodSum(
+                z => (Math.Exp(-z.Abs) + Complex.Sin(z + Complex.I)) / (1 + z * z / 5), 
+                a: new Complex(-1,-4.3), b: 3+Complex.I*2, n: 61, count: 10);
+
+            integ.Show(); // -3,325142834912312 + 10,22008333462534i
+
+        }
+
+        public static void MemoizeExamples()
+        {
+            
+            Func<double, double> f = t => 
+            FuncMethods.DefInteg.GaussKronrod.GaussKronrodSum(x=>Math.Exp(-(x-t).Sqr()-x*x), a: -20, b: 10, n: 61, count: 12);
+
+            var f_Memoized = new Memoize<double,double>(f, capacity: 10, concurrencyLevel: 1).Value;
+
+            var t = DateTime.Now;
+            void show_time()
+            {
+                (DateTime.Now-t).Ticks.Show();
+                t = DateTime.Now;
+            }
+
+            f_Memoized(2).Show(); // 0,16961762375804412
+
+            show_time(); // 842753
+
+            f_Memoized(2.5).Show(); // 0,05506678006050927
+
+            show_time(); // 8179
+
+            f_Memoized(3).Show(); // 0,013923062412768037
+
+            show_time(); // 7991
+
+            f_Memoized(2.5).Show(); // 0,05506678006050927
+
+            show_time(); // 1442
+
+
+
+            // not only real functions!
+
+            Func<(double, Complex, bool), (int, int)> c = tuple =>
+               {
+                   var x = tuple.Item1;
+                   var z = tuple.Item2;
+                   var b = tuple.Item3;
+
+                   if (b)
+                       return ((int)(x + z.Re), (int)(x + z.Im));
+                   else
+                       return (0, 0);
+               };
+
+            var c_tmp = new Memoize<(double, Complex, bool), (int, int)>(c, 100, 4).Value;
+
+            Func<double, Complex, bool,(int,int)> c_Memoized = (double x, Complex z, bool b) => c_tmp((x, z, b));
+        }
 
 
 
