@@ -12,4 +12,4 @@ with open('README.md', 'r') as f:
 
 with open('README.md', 'w') as f:
     for l in t:
-        f.write(l.lstrip())
+        f.write(l.lstrip() if l != '\n' else l)
