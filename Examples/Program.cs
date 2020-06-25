@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MathNet.Numerics;
+using System;
 using System.Linq;
 using МатКлассы;
 using Complex = МатКлассы.Number.Complex;
@@ -16,7 +17,11 @@ namespace Examples
 
             //Ex.PointExamples();
 
-            Ex.ParserExamples();
+            //Ex.ParserExamples();
+
+            //Ex.VectorExamples();
+
+            Ex.CVectorExamples();
 
             Console.ReadKey();
         }
@@ -146,6 +151,90 @@ namespace Examples
             //- 7,964336745137357E+20 + 1,3345594600169975E+21i == -7,964336745137357E+20 + 1,3345594600169975E+21i
 
         }
+
+        public static void VectorExamples()
+        {
+
+            var v = new Vectors(5);
+            v.Show(); // (       0       0       0       0       0       )
+
+            v = new Vectors(5, 1.0);
+            v.Show(); // (       1       1       1       1       1       )
+
+            v = new Vectors(1, 2, 3, 4, 5, 6, 7, 9.5, -2, 3);
+            v.Show(); // (       1       2       3       4       5       6       7       9,5     -2      3       )
+
+            v = new Vectors(new double[] { 1, 2, 3,-3,-2,-1,0 });
+            v.Show(); // (       1       2       3       -3      -2      -1      0       )
+
+
+            v[6].Show(); // 0
+
+            v.EuqlidNorm.Show(); // 0,7559289460184545
+
+            v.Normalize(0, 1).Show(); // (       0,6666666666666666      0,8333333333333333      1       0       0,16666666666666666     0,3333333333333333     0,5      )
+
+            v.Range.Show(); // 6
+
+            v.SubVector(4).Show(); // (       1       2       3       -3      )
+
+            v.Average.Show(); // 1,7142857142857142
+
+            v.Contain(3).Show(); // True
+
+            v.Normalize(-0.5, 0.5).ToRationalStringTab().Show(); // (       1/6     1/3     1/2     -1/2    -1/3    -1/6    0       )
+
+            var p = Vectors.Create(dim: 7, min: 0, max: 2);
+            p.Show(); // (       1,4585359040647745      1,7510524201206863      1,4706563879735768      0,45403700647875667     0,022686069831252098    1,9943826524540782      0,3851787596940994      )
+
+            Vectors.Mix(v, p).Show(); 
+            // (       1       1,4585359040647745      2       1,7510524201206863      3       1,4706563879735768      -3      0,45403700647875667      -2      0,022686069831252098    -1      1,9943826524540782      0       0,3851787596940994      )
+            
+            (v + p).Show(); // (       2,4585359040647745      3,7510524201206863      4,470656387973577       -2,5459629935212433     -1,977313930168748      0,9943826524540782      0,3851787596940994      )
+            (v * p).Show(); // 5,970744096674025
+            Vectors.CompMult(v, p).Show(); // (       1,4585359040647745      3,5021048402413726      4,41196916392073        -1,36211101943627       -0,045372139662504196   -1,9943826524540782     0       )
+
+            (2.4*v.AbsVector - p/2).Sort.BinaryApproxSearch(1.5).Show(); // 1,4028086737729608
+
+        }
+
+        public static void CVectorExamples()
+        {
+            var v1 = new Vectors(1, 2, 3, 4, 5);
+            var v2 = new Vectors(0, 3, 4, 3, -5);
+
+            var c = new CVectors(R: v1, I: v2);
+
+            c.Show(); // (1    2 + 3i   3 + 4i   4 + 3i   5 - 5i)
+            c.Re.Show(); // (       1       2       3       4       5       )
+            c.Normalize.Show(); // (0,1414213562373095    0,282842712474619 + 0,42426406871192845i   0,42426406871192845 + 0,565685424949238i   0,565685424949238 + 0,42426406871192845i   0,7071067811865475 - 0,7071067811865475i)
+            c.Conjugate.Show(); // (1    2 - 3i   3 - 4i   4 - 3i   5 + 5i)
+
+            var b = new CVectors(new Complex[] { new Complex(1, 2), new Complex(4, 5), new Complex(4.4, 0), new Complex(), new Complex(4.5) });
+
+            (c/5 + b*(0.2-Complex.I)).Show(); // (2,4000000000000004 - 0,6i   6,2 - 2,4i   1,48 - 3,6000000000000005i   0,8 + 0,6i   1,9 - 5,5i)
+
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     }
 
 }

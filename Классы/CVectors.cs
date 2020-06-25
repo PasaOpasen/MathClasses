@@ -213,8 +213,8 @@ namespace МатКлассы
             {
                 double d = mas[0].Abs;
                 for (int i = 1; i < mas.Length; i++)
-                    if (d > mas[1].Abs)
-                        d = mas[1].Abs;
+                    if (d > mas[i].Abs)
+                        d = mas[i].Abs;
                 return (d == 0) ? this : this / d;
             }
         }

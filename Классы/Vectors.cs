@@ -297,7 +297,7 @@ namespace МатКлассы
             for (int i = 0; i < M.n; i++) this.vector[i] = M[i, 0];
         }
         /// <summary>
-        /// Вектор как кусок кругого вектора
+        /// Вектор как кусок другого вектора
         /// </summary>
         /// <param name="v">Образец</param>
         /// <param name="a">Коэффициент начала из образца</param>
