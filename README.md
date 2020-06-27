@@ -339,7 +339,7 @@ integ.Show(); // -3,325142834912312 + 10,22008333462534i
 
 ```csharp
 Func<double, double> f = t => 
-FuncMethods.DefInteg.GaussKronrod.GaussKronrodSum(x=>Math.Exp(-(x-t).Sqr()-x*x), a: -20, b: 10, n: 61, count: 12);
+  FuncMethods.DefInteg.GaussKronrod.GaussKronrodSum(x=>Math.Exp(-(x-t).Sqr()-x*x), a: -20, b: 10, n: 61, count: 12);
 
 var f_Memoized = new Memoize<double,double>(f, capacity: 10, concurrencyLevel: 1).Value;
 
@@ -415,7 +415,7 @@ pol.Value(5).Show(); // 7
 pol = new Polynom(x => Math.Sin(x) + x, n: 6, a: -1, b: 1);
 
 foreach (var val in new NetOnDouble(-1, 1, 12).Array)
-$"pol = {pol.Value(val)}   f = {Math.Sin(val)+val}".Show();
+  $"pol = {pol.Value(val)}   f = {Math.Sin(val)+val}".Show();
 
 //pol = -1,841470984807902   f = -1,8414709848078965
 //pol = -1,5480795026639842   f = -1,548086037891892
