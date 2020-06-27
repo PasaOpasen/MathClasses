@@ -469,10 +469,16 @@ Func<double, double> f = t =>
 
 ### Swarm algorithm
 
-```csahrp
+```csharp
 double rastr(double v) => v * v - 10 * Math.Cos(2 * Math.PI * v);
             double shvel(double v) => -v * Math.Sin(Math.Sqrt(v.Abs()));
+```
+![1](https://github.com/PasaOpasen/MathClasses/blob/master/Examples/images/rast1d.png)
+![1](https://github.com/PasaOpasen/MathClasses/blob/master/Examples/images/shvel1.png)
 
+Use swarm algorithm to find global minimum of 1D-functions:
+
+```csharp
             // 1D functions
 
             var (argmin, min) = BeeHiveAlgorithm.GetGlobalMin(rastr, minimum: -5, maximum: 5,eps:1e-15, countpoints: 100, maxiter: 100);
@@ -483,7 +489,9 @@ double rastr(double v) => v * v - 10 * Math.Cos(2 * Math.PI * v);
             (argmin, min) = BeeHiveAlgorithm.GetGlobalMin(shvel, minimum: -150, maximum: 150, eps: 1e-15, countpoints: 100, maxiter: 100);
 
             $"min = {min}, argmin = {argmin}".Show(); // min = -122,45163537317933, argmin = -126,64228803478181
-
+```
+2D-functions
+```csharp
             // 2D functions
 
             // u can write -func to find the maximum of function
@@ -498,7 +506,11 @@ double rastr(double v) => v * v - 10 * Math.Cos(2 * Math.PI * v);
                 minimum: new Point(-150, -150), maximum: new Point(150, 150), eps: 1e-15, countpoints: 500, maxiter: 200);
 
             argmin2.Show(); // (124,97163349762559 , 126,79389473050833)
+```
+![1](https://github.com/PasaOpasen/MathClasses/blob/master/Examples/images/shvel2.png)
 
+And more than 2D functions:
+```csharp
 
             // u can use 3D+ functions
 
