@@ -241,16 +241,276 @@ var b = new CVectors(new Complex[] { new Complex(1, 2), new Complex(4, 5), new C
 
 ```
 
+### Square matrixes
+
+```csharp
+var mat = new SqMatrix(new double[,] { { 1, -5 }, { -40, 0.632 } });
+
+            mat.PrintMatrix();
+//  1      -5
+//- 40     0,632
+
+            var i = SqMatrix.I(mat.RowCount);
+
+            i.PrintMatrix();
+            //1       0
+            //0       1
+
+            var mat2 = mat + i * 40;
+
+            mat2.PrintMatrix();
+            //41      -5
+            //-40     40,632
+
+            var inv = mat.Invertion;
+            inv.PrintMatrix();
+            //-0,003170017254524297   -0,02507925043136311
+            //-0,20063400345090485 - 0,0050158500862726215
+
+                      (inv * mat).PrintMatrix();
+            //1       0
+            //2,7755575615628914E-17  0,9999999999999999
+
+
+                        (inv * mat).Track.Show(); // 2
+
+
+            (inv * mat).CubeNorm.Show(); // 1
+
+            (inv * mat).Det.Show(); // 0,9999999999999999
+
+            mat.Solve(new Vectors(4.0, -5)).Show(); // (       0,11271618313871837     -0,7774567633722562     )
+
+```
+
+### Random numbers
+
+```csharp
+RandomNumbers.SetSeed(0);
+
+            RandomNumbers.NextDouble.Show(); // 0,7262432699679598
+
+            RandomNumbers.NextDouble2(min: 40, max: 50).Show(); // 48,173253595909685
+
+            RandomNumbers.NextNumber().Show(); // 1649316166
+```
+
+
+### Double nets
+
+```csharp
+void show(NetOnDouble n) => new Vectors(n.Array).Show();
+
+            var net = new NetOnDouble(begin: -1, end: 1, count: 8); // like numpy.linspase
+
+            show(net); // (       -1      -0,7142857142857143     -0,4285714285714286     -0,1428571428571429     0,1428571428571428      0,4285714285714284      0,7142857142857142      1       )
+
+            net = new NetOnDouble(begin: -1, end: 1, step: 0.3); // like numpy.arange
+
+            show(net); // (       -1      -0,7    -0,4    -0,10000000000000009    0,19999999999999996     0,5     0,7999999999999998      )
+
+            var net2 = new NetOnDouble(net, newCount: 5);
+
+            show(net2); // (       -1      -0,6    -0,19999999999999996    0,20000000000000018     0,6000000000000001      )
+
+```
+
+### Integration
+
+```csharp
+Func<double, double> freal = x => (x-4 + Math.Sin(x*10)) / (1 + x * x);
+
+            double integral = FuncMethods.DefInteg.GaussKronrod.GaussKronrodSum(freal, a: -3, b: 3, n: 61, count: 5);
+
+            integral.Show(); // -9,992366179186035
+
+            Complex integ = FuncMethods.DefInteg.GaussKronrod.GaussKronrodSum(
+                z => (Math.Exp(-z.Abs) + Complex.Sin(z + Complex.I)) / (1 + z * z / 5), 
+                a: new Complex(-1,-4.3), b: 3+Complex.I*2, n: 61, count: 10);
+
+            integ.Show(); // -3,325142834912312 + 10,22008333462534i
+```
+
+
+### Memoization
+
+```csharp
+Func<double, double> f = t => 
+            FuncMethods.DefInteg.GaussKronrod.GaussKronrodSum(x=>Math.Exp(-(x-t).Sqr()-x*x), a: -20, b: 10, n: 61, count: 12);
+
+            var f_Memoized = new Memoize<double,double>(f, capacity: 10, concurrencyLevel: 1).Value;
+
+            var t = DateTime.Now;
+            void show_time()
+            {
+                (DateTime.Now-t).Ticks.Show();
+                t = DateTime.Now;
+            }
+
+            f_Memoized(2).Show(); // 0,16961762375804412
+
+            show_time(); // 842753
+
+            f_Memoized(2.5).Show(); // 0,05506678006050927
+
+            show_time(); // 8179
+
+            f_Memoized(3).Show(); // 0,013923062412768037
+
+            show_time(); // 7991
+
+            f_Memoized(2.5).Show(); // 0,05506678006050927
+
+            show_time(); // 1442
 
 
 
+            // not only real functions!
+
+            Func<(double, Complex, bool), (int, int)> c = tuple =>
+               {
+                   var x = tuple.Item1;
+                   var z = tuple.Item2;
+                   var b = tuple.Item3;
+
+                   if (b)
+                       return ((int)(x + z.Re), (int)(x + z.Im));
+                   else
+                       return (0, 0);
+               };
+
+            var c_tmp = new Memoize<(double, Complex, bool), (int, int)>(c, 100, 4).Value;
+
+            Func<double, Complex, bool,(int,int)> c_Memoized = (double x, Complex z, bool b) => c_tmp((x, z, b));
+```
+
+### Polynoms
+
+```csharp
+// create by coefs
+            var pol = new Polynom(new double[] { 1, 2, 3, 4, 5 });
+            pol.Show(); // 5x^4 + 4x^3 + 3x^2 + 2x^1 + 1
+
+            // create by head coef and roots
+            pol = new Polynom(aN: 2, -1, 0, 1, 2);
+            pol.Show(); // 2x^4 + -4x^3 + -2x^2 + 4x^1 + -0
+
+
+            var points = new Point[] { new Point(1, 2), new Point(3, 4), new Point(5, 7) };
+            // interpolation polynom
+            pol = new Polynom(points);
+
+            pol.Show(); // 0,125x^2 + 0,5x^1 + 1,375
+            pol.Value(1).Show(); // 2
+            pol.Value(3).Show(); // 4
+            pol.Value(5).Show(); // 7
+
+
+            // interpolation polynom
+            pol = new Polynom(x => Math.Sin(x) + x, n: 6, a: -1, b: 1);
+
+            foreach (var val in new NetOnDouble(-1, 1, 12).Array)
+                $"pol = {pol.Value(val)}   f = {Math.Sin(val)+val}".Show();
+
+//pol = -1,841470984807902   f = -1,8414709848078965
+//pol = -1,5480795026639842   f = -1,548086037891892
+//pol = -1,230639272195443   f = -1,230638423911926
+//pol = -0,8936010083785814   f = -0,8935994224990154
+//pol = -0,5420855146782465   f = -0,5420861802628714
+//pol = -0,18169222919395844   f = -0,1816930144179611
+//pol = 0,18169222919395842   f = 0,1816930144179611
+//pol = 0,5420855146782463   f = 0,5420861802628714
+//pol = 0,8936010083785806   f = 0,8935994224990154
+//pol = 1,2306392721954413   f = 1,230638423911926
+//pol = 1,5480795026639818   f = 1,5480860378918924
+//pol = 1,8414709848078967   f = 1,8414709848078965
+
+            // operations
+
+            var pol1 = new Polynom(new double[] { 1, 2, 3, 4, 5 });
+            var pol2 = new Polynom(new double[] { 2.2, 3 });
+
+            pol1.Show(); // 5x^4 + 4x^3 + 3x^2 + 2x^1 + 1
+            pol2.Show(); // 3x^1 + 2,2
+            pol2.ShowRational(); // (3x^1) + 11/5
+
+            (pol1 * pol2).Show(); // 15x^5 + 23x^4 + 17,8x^3 + 12,600000000000001x^2 + 7,4x^1 + 2,2
+
+            (pol1 / 2 + pol2 * 2.8-4.66).Show(); // 2,5x^4 + 2x^3 + 1,5x^2 + 9,399999999999999x^1 + 2
+
+            var a = pol1 / pol2;
+            var b = pol1 % pol2;
+
+            $"{pol1} == {a*pol2+b}".Show(); // 5x^4 + 4x^3 + 3x^2 + 2x^1 + 1 == 5x^4 + 4x^3 + 3x^2 + 2x^1 + 1
+
+            (a, b) = Polynom.Division(pol1 - 1.5, pol2);
+            $"{pol1-1.5} == {a * pol2 + b}".Show(); // 5x^4 + 4x^3 + 3x^2 + 2x^1 + -0,5 == 5x^4 + 4x^3 + 3x^2 + 2x^1 + -0,5
+
+            // derivative
+            (pol1 | 2).Show(); // 60x^2 + 24x^1 + 6
 
 
 
+            pol2.Value(pol1).Show(); // 
+
+            pol2.Value(new SqMatrix(new double[,] { { 1, 2 }, { 3, 4 } })).PrintMatrix();
+
+            //5,2     6
+            //9       14,2
 
 
+            // integration
+
+            $"{pol1.S(-3,2)} == {FuncMethods.DefInteg.GaussKronrod.MySimpleGaussKronrod(pol1.Value,-3,2,n:15)}".Show();
+
+            // 245 == 244,99999999999997
+        
+```
+
+### Swarm algorithm
+
+```csahrp
+double rastr(double v) => v * v - 10 * Math.Cos(2 * Math.PI * v);
+            double shvel(double v) => -v * Math.Sin(Math.Sqrt(v.Abs()));
+
+            // 1D functions
+
+            var (argmin, min) = BeeHiveAlgorithm.GetGlobalMin(rastr, minimum: -5, maximum: 5,eps:1e-15, countpoints: 100, maxiter: 100);
+
+            $"min = {min}, argmin = {argmin}".Show(); // min = -9,973897874017823, argmin = 0,011472797486931086
 
 
+            (argmin, min) = BeeHiveAlgorithm.GetGlobalMin(shvel, minimum: -150, maximum: 150, eps: 1e-15, countpoints: 100, maxiter: 100);
+
+            $"min = {min}, argmin = {argmin}".Show(); // min = -122,45163537317933, argmin = -126,64228803478181
+
+            // 2D functions
+
+            // u can write -func to find the maximum of function
+            var (argmin2, _) = BeeHiveAlgorithm.GetGlobalMin((Point p) => -shvel(p.x) - shvel(p.y), 
+                minimum: new Point(-150, -150), maximum: new Point(150, 150), eps: 1e-15, countpoints: 300, maxiter: 200);
+
+            argmin2.Show(); // (125,85246982052922 , 133,86488312389702)
+
+
+            // u don't need only smooth functions!
+            (argmin2, _) = BeeHiveAlgorithm.GetGlobalMin((Point p) => -shvel(p.x) - shvel(p.y)+RandomNumbers.NextDouble2(-1,1), 
+                minimum: new Point(-150, -150), maximum: new Point(150, 150), eps: 1e-15, countpoints: 500, maxiter: 200);
+
+            argmin2.Show(); // (124,97163349762559 , 126,79389473050833)
+
+
+            // u can use 3D+ functions
+
+            var (argmin3, _) = BeeHiveAlgorithm.GetGlobalMin((Vectors v) => Math.Sin(v[0]).Abs()*rastr(v[1])*shvel(v[2]).Abs()+shvel(v[3]),
+                minimum: new Vectors(-100, -100, -100, -50),
+                maximum: new Vectors(100, 50, 50, 50),
+                eps: 1e-15,
+                countpoints: 500,
+                maxiter: 500);
+
+            argmin3.Show(); // (       48,37734238244593       0,09753305930644274     -60,919505648780614     46,69636117760092       )
+```
 
 
 
