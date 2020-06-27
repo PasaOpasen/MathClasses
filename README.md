@@ -283,6 +283,8 @@ mat.Solve(new Vectors(4.0, -5)).Show(); // (       0,11271618313871837     -0,77
 
 ```
 
+There are also [**complex square matrixes**](https://github.com/PasaOpasen/MathClasses/blob/master/MathClassesLibrary/CSqMatrix.cs), [**real nonsquare matrixes**](https://github.com/PasaOpasen/MathClasses/blob/master/MathClassesLibrary/Matrix.cs), [**real systems of linear equations**](https://github.com/PasaOpasen/MathClasses/blob/master/MathClassesLibrary/SLAU.cs) and [**complex systems of linear equations**](https://github.com/PasaOpasen/MathClasses/blob/master/MathClassesLibrary/CSLAU.cs).
+
 ### Random numbers
 
 ```csharp
@@ -331,6 +333,7 @@ a: new Complex(-1,-4.3), b: 3+Complex.I*2, n: 61, count: 10);
 integ.Show(); // -3,325142834912312 + 10,22008333462534i
 ```
 
+[This class](https://github.com/PasaOpasen/MathClasses/blob/master/MathClassesLibrary/FuncMethods.DefInteg.cs) also supports improper integrals, double integrals and Monte-Carlo methods (for vector-functions too). 
 
 ### Memoization
 
@@ -383,6 +386,8 @@ var c_tmp = new Memoize<(double, Complex, bool), (int, int)>(c, 100, 4).Value;
 
 Func<double, Complex, bool,(int,int)> c_Memoized = (double x, Complex z, bool b) => c_tmp((x, z, b));
 ```
+
+There are threadsafe and nonthreadsafe implementations.
 
 ### Polynoms
 
@@ -466,6 +471,8 @@ $"{pol1.S(-3,2)} == {FuncMethods.DefInteg.GaussKronrod.MySimpleGaussKronrod(pol1
 // 245 == 244,99999999999997
 ```
 
+There are also splines and rational interpolation.
+
 ### Swarm algorithm
 
 ```csharp
@@ -523,5 +530,6 @@ maxiter: 500);
 argmin3.Show(); // (       48,37734238244593       0,09753305930644274     -60,919505648780614     46,69636117760092       )
 ```
 
+This class also contains the bee colony method. 
 
 
