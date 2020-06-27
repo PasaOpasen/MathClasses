@@ -124,7 +124,7 @@ Point.Center(points).Show(); // (0,6655678990602344 , 0,531635367093438)
 points = Point.Points(x => Math.Sin(x) + 2 * Math.Round(x), n: 10, a: -0.2, b: 0.2);
 
 foreach (var p in points)
-Console.WriteLine(p);
+  Console.WriteLine(p);
 
 //(0, 6655678990602344, 0, 531635367093438)
 //(-0, 2, -0, 19866933079506122)
@@ -151,8 +151,8 @@ Func<double, double> f2 = x => Math.Cos(x) + Math.Sin(x / 2 + 4.6) * Math.Exp(-x
 
 for (int i = 0; i < 5; i++)
 {
-var d = gen.NextDouble() * 50;
-$"{f1(d)} == {f2(d)}".Show();
+  var d = gen.NextDouble() * 50;
+  $"{f1(d)} == {f2(d)}".Show();
 }
 //2,1254805141764708 == 2,1254805141764708
 //1,8237614071831993 == 1,8237614071831991
@@ -165,9 +165,9 @@ Func<Complex, Complex> c2 = z => z.Re * z.Im + Complex.Sh(z) * Complex.I + Compl
 
 for (int i = 0; i < 5; i++)
 {
-var d = new Complex(gen.NextDouble() * 50, gen.NextDouble() * 10);
+  var d = new Complex(gen.NextDouble() * 50, gen.NextDouble() * 10);
 
-$"{c1(d)} == {c2(d)}".Show();
+  $"{c1(d)} == {c2(d)}".Show();
 }
 
 // 485696399,00749403 - 1151202339,537752i == 485696398,8506223 - 1151202339,7349265i
@@ -283,6 +283,8 @@ mat.Solve(new Vectors(4.0, -5)).Show(); // (       0,11271618313871837     -0,77
 
 ```
 
+There are also [**complex square matrixes**](https://github.com/PasaOpasen/MathClasses/blob/master/MathClassesLibrary/CSqMatrix.cs), [**real nonsquare matrixes**](https://github.com/PasaOpasen/MathClasses/blob/master/MathClassesLibrary/Matrix.cs), [**real systems of linear equations**](https://github.com/PasaOpasen/MathClasses/blob/master/MathClassesLibrary/SLAU.cs) and [**complex systems of linear equations**](https://github.com/PasaOpasen/MathClasses/blob/master/MathClassesLibrary/CSLAU.cs).
+
 ### Random numbers
 
 ```csharp
@@ -325,26 +327,27 @@ double integral = FuncMethods.DefInteg.GaussKronrod.GaussKronrodSum(freal, a: -3
 integral.Show(); // -9,992366179186035
 
 Complex integ = FuncMethods.DefInteg.GaussKronrod.GaussKronrodSum(
-z => (Math.Exp(-z.Abs) + Complex.Sin(z + Complex.I)) / (1 + z * z / 5), 
-a: new Complex(-1,-4.3), b: 3+Complex.I*2, n: 61, count: 10);
+  z => (Math.Exp(-z.Abs) + Complex.Sin(z + Complex.I)) / (1 + z * z / 5), 
+  a: new Complex(-1,-4.3), b: 3+Complex.I*2, n: 61, count: 10);
 
 integ.Show(); // -3,325142834912312 + 10,22008333462534i
 ```
 
+[This class](https://github.com/PasaOpasen/MathClasses/blob/master/MathClassesLibrary/FuncMethods.DefInteg.cs) also supports improper integrals, double integrals and Monte-Carlo methods (for vector-functions too). 
 
 ### Memoization
 
 ```csharp
 Func<double, double> f = t => 
-FuncMethods.DefInteg.GaussKronrod.GaussKronrodSum(x=>Math.Exp(-(x-t).Sqr()-x*x), a: -20, b: 10, n: 61, count: 12);
+  FuncMethods.DefInteg.GaussKronrod.GaussKronrodSum(x=>Math.Exp(-(x-t).Sqr()-x*x), a: -20, b: 10, n: 61, count: 12);
 
 var f_Memoized = new Memoize<double,double>(f, capacity: 10, concurrencyLevel: 1).Value;
 
 var t = DateTime.Now;
 void show_time()
 {
-(DateTime.Now-t).Ticks.Show();
-t = DateTime.Now;
+  (DateTime.Now-t).Ticks.Show();
+  t = DateTime.Now;
 }
 
 f_Memoized(2).Show(); // 0,16961762375804412
@@ -369,20 +372,22 @@ show_time(); // 1442
 
 Func<(double, Complex, bool), (int, int)> c = tuple =>
 {
-var x = tuple.Item1;
-var z = tuple.Item2;
-var b = tuple.Item3;
+  var x = tuple.Item1;
+  var z = tuple.Item2;
+  var b = tuple.Item3;
 
-if (b)
-return ((int)(x + z.Re), (int)(x + z.Im));
-else
-return (0, 0);
+  if (b)
+    return ((int)(x + z.Re), (int)(x + z.Im));
+  else
+    return (0, 0);
 };
 
 var c_tmp = new Memoize<(double, Complex, bool), (int, int)>(c, 100, 4).Value;
 
 Func<double, Complex, bool,(int,int)> c_Memoized = (double x, Complex z, bool b) => c_tmp((x, z, b));
 ```
+
+There are threadsafe and nonthreadsafe implementations.
 
 ### Polynoms
 
@@ -410,7 +415,7 @@ pol.Value(5).Show(); // 7
 pol = new Polynom(x => Math.Sin(x) + x, n: 6, a: -1, b: 1);
 
 foreach (var val in new NetOnDouble(-1, 1, 12).Array)
-$"pol = {pol.Value(val)}   f = {Math.Sin(val)+val}".Show();
+  $"pol = {pol.Value(val)}   f = {Math.Sin(val)+val}".Show();
 
 //pol = -1,841470984807902   f = -1,8414709848078965
 //pol = -1,5480795026639842   f = -1,548086037891892
@@ -466,6 +471,8 @@ $"{pol1.S(-3,2)} == {FuncMethods.DefInteg.GaussKronrod.MySimpleGaussKronrod(pol1
 // 245 == 244,99999999999997
 ```
 
+There are also splines and rational interpolation.
+
 ### Swarm algorithm
 
 ```csharp
@@ -495,14 +502,14 @@ $"min = {min}, argmin = {argmin}".Show(); // min = -122,45163537317933, argmin =
 
 // u can write -func to find the maximum of function
 var (argmin2, _) = BeeHiveAlgorithm.GetGlobalMin((Point p) => -shvel(p.x) - shvel(p.y), 
-minimum: new Point(-150, -150), maximum: new Point(150, 150), eps: 1e-15, countpoints: 300, maxiter: 200);
+  minimum: new Point(-150, -150), maximum: new Point(150, 150), eps: 1e-15, countpoints: 300, maxiter: 200);
 
 argmin2.Show(); // (125,85246982052922 , 133,86488312389702)
 
 
 // u don't need only smooth functions!
 (argmin2, _) = BeeHiveAlgorithm.GetGlobalMin((Point p) => -shvel(p.x) - shvel(p.y)+RandomNumbers.NextDouble2(-1,1), 
-minimum: new Point(-150, -150), maximum: new Point(150, 150), eps: 1e-15, countpoints: 500, maxiter: 200);
+  minimum: new Point(-150, -150), maximum: new Point(150, 150), eps: 1e-15, countpoints: 500, maxiter: 200);
 
 argmin2.Show(); // (124,97163349762559 , 126,79389473050833)
 ```
@@ -514,14 +521,15 @@ And more than 2D functions:
 // u can use 3D+ functions
 
 var (argmin3, _) = BeeHiveAlgorithm.GetGlobalMin((Vectors v) => Math.Sin(v[0]).Abs()*rastr(v[1])*shvel(v[2]).Abs()+shvel(v[3]),
-minimum: new Vectors(-100, -100, -100, -50),
-maximum: new Vectors(100, 50, 50, 50),
-eps: 1e-15,
-countpoints: 500,
-maxiter: 500);
+  minimum: new Vectors(-100, -100, -100, -50),
+  maximum: new Vectors(100, 50, 50, 50),
+  eps: 1e-15,
+  countpoints: 500,
+  maxiter: 500);
 
 argmin3.Show(); // (       48,37734238244593       0,09753305930644274     -60,919505648780614     46,69636117760092       )
 ```
 
+This class also contains the bee colony method. 
 
 
