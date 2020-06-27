@@ -22,7 +22,9 @@ namespace МатКлассы
         /// </summary>
         public Point[] points;
 
-        //конструкторы
+
+        #region Constructors
+
         /// <summary>
         /// Никакой полином
         /// </summary>
@@ -176,10 +178,12 @@ namespace МатКлассы
             for (int k = 0; k <= this.degree; k++) this.coef[k] = p.coef[k];
         }
 
+        #endregion
+
         public Polynom dup => new Polynom(this);
 
 
-        //операции
+        #region Operations
         public static Polynom operator +(Polynom a, Polynom b)//сложение полиномов
         {
             int degree = Math.Max((sbyte)a.degree, (sbyte)b.degree);
@@ -193,6 +197,7 @@ namespace МатКлассы
             return new Polynom(coef);
         }
         public static Polynom operator +(Polynom a, double Ch) { return a + ToPolynom(Ch); }
+        public static Polynom operator -(Polynom a, double Ch) => a + (-Ch);
         public static Polynom operator -(Polynom a)//унарная операция -
         {
             Polynom p = new Polynom(a);
@@ -241,6 +246,14 @@ namespace МатКлассы
             Deconv(end.coef, er.coef, out quotient, out remainder);
             return new Polynom(remainder);
         }
+
+        public static (Polynom,Polynom) Division(Polynom end, Polynom er)
+        {
+            double[] quotient, remainder;
+            Deconv(end.coef, er.coef, out quotient, out remainder);
+            return (new Polynom(quotient),new Polynom(remainder));
+        }
+
         public static Polynom operator |(Polynom p, int k)//производная полинома
         {
             if (k >= p.degree + 1) return Polynom.ToPolynom(0);
@@ -263,6 +276,8 @@ namespace МатКлассы
             return false;
         }
         public static bool operator ==(Polynom p, Polynom q) { return !(p != q); }
+
+        #endregion
 
         public override bool Equals(object obj)
         {

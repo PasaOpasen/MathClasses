@@ -31,7 +31,11 @@ namespace Examples
 
             //Ex.IntegExamples();
 
-            Ex.MemoizeExamples();
+            //Ex.MemoizeExamples();
+
+            //Ex.PolynomExamples();
+
+            Ex.BeeHiveExamples();
 
             Console.ReadKey();
         }
@@ -366,9 +370,130 @@ namespace Examples
             Func<double, Complex, bool,(int,int)> c_Memoized = (double x, Complex z, bool b) => c_tmp((x, z, b));
         }
 
+        public static void PolynomExamples()
+        {
+            // create by coefs
+            var pol = new Polynom(new double[] { 1, 2, 3, 4, 5 });
+            pol.Show(); // 5x^4 + 4x^3 + 3x^2 + 2x^1 + 1
+
+            // create by head coef and roots
+            pol = new Polynom(aN: 2, -1, 0, 1, 2);
+            pol.Show(); // 2x^4 + -4x^3 + -2x^2 + 4x^1 + -0
+
+
+            var points = new Point[] { new Point(1, 2), new Point(3, 4), new Point(5, 7) };
+            // interpolation polynom
+            pol = new Polynom(points);
+
+            pol.Show(); // 0,125x^2 + 0,5x^1 + 1,375
+            pol.Value(1).Show(); // 2
+            pol.Value(3).Show(); // 4
+            pol.Value(5).Show(); // 7
+
+
+            // interpolation polynom
+            pol = new Polynom(x => Math.Sin(x) + x, n: 6, a: -1, b: 1);
+
+            foreach (var val in new NetOnDouble(-1, 1, 12).Array)
+                $"pol = {pol.Value(val)}   f = {Math.Sin(val)+val}".Show();
+
+//pol = -1,841470984807902   f = -1,8414709848078965
+//pol = -1,5480795026639842   f = -1,548086037891892
+//pol = -1,230639272195443   f = -1,230638423911926
+//pol = -0,8936010083785814   f = -0,8935994224990154
+//pol = -0,5420855146782465   f = -0,5420861802628714
+//pol = -0,18169222919395844   f = -0,1816930144179611
+//pol = 0,18169222919395842   f = 0,1816930144179611
+//pol = 0,5420855146782463   f = 0,5420861802628714
+//pol = 0,8936010083785806   f = 0,8935994224990154
+//pol = 1,2306392721954413   f = 1,230638423911926
+//pol = 1,5480795026639818   f = 1,5480860378918924
+//pol = 1,8414709848078967   f = 1,8414709848078965
+
+            // operations
+
+            var pol1 = new Polynom(new double[] { 1, 2, 3, 4, 5 });
+            var pol2 = new Polynom(new double[] { 2.2, 3 });
+
+            pol1.Show(); // 5x^4 + 4x^3 + 3x^2 + 2x^1 + 1
+            pol2.Show(); // 3x^1 + 2,2
+            pol2.ShowRational(); // (3x^1) + 11/5
+
+            (pol1 * pol2).Show(); // 15x^5 + 23x^4 + 17,8x^3 + 12,600000000000001x^2 + 7,4x^1 + 2,2
+
+            (pol1 / 2 + pol2 * 2.8-4.66).Show(); // 2,5x^4 + 2x^3 + 1,5x^2 + 9,399999999999999x^1 + 2
+
+            var a = pol1 / pol2;
+            var b = pol1 % pol2;
+
+            $"{pol1} == {a*pol2+b}".Show(); // 5x^4 + 4x^3 + 3x^2 + 2x^1 + 1 == 5x^4 + 4x^3 + 3x^2 + 2x^1 + 1
+
+            (a, b) = Polynom.Division(pol1 - 1.5, pol2);
+            $"{pol1-1.5} == {a * pol2 + b}".Show(); // 5x^4 + 4x^3 + 3x^2 + 2x^1 + -0,5 == 5x^4 + 4x^3 + 3x^2 + 2x^1 + -0,5
+
+            // derivative
+            (pol1 | 2).Show(); // 60x^2 + 24x^1 + 6
 
 
 
+            pol2.Value(pol1).Show(); // 
+
+            pol2.Value(new SqMatrix(new double[,] { { 1, 2 }, { 3, 4 } })).PrintMatrix();
+
+            //5,2     6
+            //9       14,2
+
+
+            // integration
+
+            $"{pol1.S(-3,2)} == {FuncMethods.DefInteg.GaussKronrod.MySimpleGaussKronrod(pol1.Value,-3,2,n:15)}".Show();
+
+            // 245 == 244,99999999999997
+        }
+
+        public static void BeeHiveExamples()
+        {
+            double rastr(double v) => v * v - 10 * Math.Cos(2 * Math.PI * v);
+            double shvel(double v) => -v * Math.Sin(Math.Sqrt(v.Abs()));
+
+            // 1D functions
+
+            var (argmin, min) = BeeHiveAlgorithm.GetGlobalMin(rastr, minimum: -5, maximum: 5,eps:1e-15, countpoints: 100, maxiter: 100);
+
+            $"min = {min}, argmin = {argmin}".Show(); // min = -9,973897874017823, argmin = 0,011472797486931086
+
+
+            (argmin, min) = BeeHiveAlgorithm.GetGlobalMin(shvel, minimum: -150, maximum: 150, eps: 1e-15, countpoints: 100, maxiter: 100);
+
+            $"min = {min}, argmin = {argmin}".Show(); // min = -122,45163537317933, argmin = -126,64228803478181
+
+            // 2D functions
+
+            // u can write -func to find the maximum of function
+            var (argmin2, _) = BeeHiveAlgorithm.GetGlobalMin((Point p) => -shvel(p.x) - shvel(p.y), 
+                minimum: new Point(-150, -150), maximum: new Point(150, 150), eps: 1e-15, countpoints: 300, maxiter: 200);
+
+            argmin2.Show(); // (125,85246982052922 , 133,86488312389702)
+
+
+            // u don't need only smooth functions!
+            (argmin2, _) = BeeHiveAlgorithm.GetGlobalMin((Point p) => -shvel(p.x) - shvel(p.y)+RandomNumbers.NextDouble2(-1,1), 
+                minimum: new Point(-150, -150), maximum: new Point(150, 150), eps: 1e-15, countpoints: 500, maxiter: 200);
+
+            argmin2.Show(); // (124,97163349762559 , 126,79389473050833)
+
+
+            // u can use 3D+ functions
+
+            var (argmin3, _) = BeeHiveAlgorithm.GetGlobalMin((Vectors v) => Math.Sin(v[0]).Abs()*rastr(v[1])*shvel(v[2]).Abs()+shvel(v[3]),
+                minimum: new Vectors(-100, -100, -100, -50),
+                maximum: new Vectors(100, 50, 50, 50),
+                eps: 1e-15,
+                countpoints: 500,
+                maxiter: 500);
+
+            argmin3.Show(); // (       48,37734238244593       0,09753305930644274     -60,919505648780614     46,69636117760092       )
+        }
 
 
 
