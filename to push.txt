@@ -1,0 +1,1 @@
+dotnet nuget push MathClassesDmPa.0.9.1.nupkg -k oy2bux3fjznsdk6jo5na6f4f4c55pjleffvop4la4tk6qi -s https://api.nuget.org/v3/index.json
