@@ -1,29 +1,30 @@
-- [Math Classes in CSharp](#math-classes-in-csharp)
-  * [About](#about)
-  * [How to download](#how-to-download)
-  * [Usage:](#usage-)
-  * [Examples](#examples)
-    + [Complex numbers](#complex-numbers)
-    + [Rational numbers](#rational-numbers)
-    + [2D Points](#2d-points)
-    + [Function parser](#function-parser)
-    + [Real vectors](#real-vectors)
-    + [Complex vectors](#complex-vectors)
-    + [Square matrixes](#square-matrixes)
-    + [Random numbers](#random-numbers)
-    + [Double nets](#double-nets)
-    + [Integration](#integration)
-    + [Memoization](#memoization)
-    + [Polynoms](#polynoms)
-    + [Swarm algorithm](#swarm-algorithm)
-
-<small><i><a href='http://ecotrust-canada.github.io/markdown-toc/'>Table of contents generated with markdown-toc</a></i></small>
-
 
 
 # Math Classes in CSharp
 
 [![NuGet version](https://buildstats.info/nuget/MathClassesDmPa)](https://www.nuget.org/packages/MathClassesDmPa/)
+
+
+* [About](#about)
+* [How to download](#how-to-download)
+* [Usage:](#usage-)
+* [Examples](#examples)
+  + [Complex numbers](#complex-numbers)
+  + [Rational numbers](#rational-numbers)
+  + [2D Points](#2d-points)
+  + [Function parser](#function-parser)
+  + [Real vectors](#real-vectors)
+  + [Complex vectors](#complex-vectors)
+  + [Square matrixes](#square-matrixes)
+  + [Random numbers](#random-numbers)
+  + [Double nets](#double-nets)
+  + [Integration](#integration)
+  + [Memoization](#memoization)
+  + [Polynoms](#polynoms)
+  + [Swarm algorithm](#swarm-algorithm)
+
+<small><i><a href='http://ecotrust-canada.github.io/markdown-toc/'>Table of contents generated with markdown-toc</a></i></small>
+
 
 ## About
 
