@@ -1,6 +1,6 @@
 
 
-# Math Classes in CSharp
+# Math Classes for .NET
 
 [![NuGet version](https://buildstats.info/nuget/MathClassesDmPa)](https://www.nuget.org/packages/MathClassesDmPa/) [![Join the chat at https://gitter.im/MathClasses/community](https://badges.gitter.im/MathClasses/community.svg)](https://gitter.im/MathClasses/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
@@ -22,8 +22,6 @@
   + [Memoization](#memoization)
   + [Polynoms](#polynoms)
   + [Swarm algorithm](#swarm-algorithm)
-
-<small><i><a href='http://ecotrust-canada.github.io/markdown-toc/'>Table of contents generated with markdown-toc</a></i></small>
 
 
 ## About
