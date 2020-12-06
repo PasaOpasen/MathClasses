@@ -1,4 +1,6 @@
+---
 theme: jekyll-theme-hacker
+---
 
 # Math Classes for .NET
 
